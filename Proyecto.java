@@ -80,4 +80,22 @@ public class Proyecto {
     public List getTareas(){
         return tareas;
     }
+
+    public void agregarCategoria(
+        // recibirá como parámetro un objeto ODS, para añadirlo y que este ligado a dicho ods
+    )
+    {//Se añadirá a la lista categoría}
+    }
+
+    public void agregarUsuario(
+        //Recibirá como parametro un objeto usuario.
+    )
+    {//el cual se añadirá a la lista usuarios del proyecto
+    }
+
+    public void agregarTarea(
+        //Recibira como parametro un objeto tarea
+    ){
+        //Dicho objeto será agregado a la lista de tareas del proyecto.
+    }
 }
