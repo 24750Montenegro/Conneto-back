@@ -4,11 +4,12 @@
 //  @ Author : Alejandro Manuel Jerez Melgar 24678
 //
 
+
 import java.util.List;
 public class Alianza {
     //Atributos
-    private List usuarios;
-    private List proyectos;
+    private List<Usuario> usuarios;
+    private List<Proyecto> proyectos;
     private String descripcion;
 
     /**
@@ -17,7 +18,7 @@ public class Alianza {
      * @param proyectos List
      * @param descripcion String
      */
-    public Alianza(List usuarios, List proyectos, String descripcion){
+    public Alianza(List<Usuario> usuarios, List<Proyecto> proyectos, String descripcion){
         this.usuarios=usuarios;
         this.proyectos=proyectos;
         this.descripcion=descripcion;
@@ -42,14 +43,14 @@ public class Alianza {
      * 
      * @return proyectos
      */
-    public List getProyectos() {
+    public List<Proyecto> getProyectos() {
         return proyectos;
     }
     /**
      * 
      * @param proyectos
      */
-    public void setProyectos(List proyectos) {
+    public void setProyectos(List<Proyecto> proyectos) {
         this.proyectos = proyectos;
     }
     
@@ -57,14 +58,14 @@ public class Alianza {
      * 
      * @return usuarios
      */
-    public List getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return usuarios;
     }
     /**
      * 
      * @param usuarios
      */
-    public void setUsuarios(List usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 }

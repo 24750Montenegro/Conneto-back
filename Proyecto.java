@@ -8,17 +8,18 @@ import java.util.List;
  * @ File Name: Proyecto.java
  * 
  */
+
 public class Proyecto {
     
     // Atributos de la clase
     private String nombre; // Se refiere al nombre con el cual se identifica el proyecto.
     private String descripcion; // una breve descripcion del proyecto a realizar
-    private List categoriaODS; // Una lista la cual contiene los ODS que aborda el proyecto a trabajar
-    private List usuarios; // Una lista con los participantes del proyecto
-    private List tareas; // Otra lista con las tareas a realizar en el proyecto para que este se lleve a cabo
+    private List<ODS> categoriaODS; // Una lista la cual contiene los ODS que aborda el proyecto a trabajar
+    private List<Usuario> usuarios; // Una lista con los participantes del proyecto
+    private List<Tarea> tareas; // Otra lista con las tareas a realizar en el proyecto para que este se lleve a cabo
 
     //Constructor 1: Método tradicional con parametros
-    public Proyecto(String nombre, String descripcion, List categoriaODS, List usuarios, List tareas){
+    public Proyecto(String nombre, String descripcion, List<ODS> categoriaODS, List<Usuario> usuarios, List<Tarea> tareas){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoriaODS = categoriaODS;
@@ -53,31 +54,31 @@ public class Proyecto {
 
     //Set y get de categoriaODS
 
-    public void setCategoriaODS(List categoriaODS){
+    public void setCategoriaODS(List<ODS> categoriaODS){
         this.categoriaODS = categoriaODS;
     }
 
-    public List getCategoriaODS(){
+    public List<ODS> getCategoriaODS(){
         return categoriaODS;
     }
 
     //Set y get de usuarios
 
-    public void setUsuarios(List usuarios){
+    public void setUsuarios(List<Usuario> usuarios){
         this.usuarios = usuarios;
     }
 
-    public List getUsuarios(){
+    public List<Usuario> getUsuarios(){
         return usuarios;
     }
 
     //Set y get de tareas
 
-    public void setTareas(List tareas){
+    public void setTareas(List<Tarea> tareas){
         this.tareas = tareas;
     }
 
-    public List getTareas(){
+    public List<Tarea> getTareas(){
         return tareas;
     }
 
