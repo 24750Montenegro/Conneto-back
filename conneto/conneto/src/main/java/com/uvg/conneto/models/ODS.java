@@ -1,3 +1,6 @@
+package com.uvg.conneto.models;
+
+
 /**
  * @ Project : Proyecto de Semestre, Conneto
  * @author Marcelo Detlefsen
