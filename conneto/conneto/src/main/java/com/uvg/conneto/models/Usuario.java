@@ -1,3 +1,4 @@
+package com.uvg.conneto.models;
 /**
  * @ Project : Proyecto de Semestre, Conneto
  * @author Juan Montenegro

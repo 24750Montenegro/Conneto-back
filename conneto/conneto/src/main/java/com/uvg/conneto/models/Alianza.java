@@ -1,3 +1,4 @@
+package com.uvg.conneto.models;
 //  @ Proyecto Fase 2
 //  @ File Name : Alianza.java
 //  @ Date : 10/08/2024
