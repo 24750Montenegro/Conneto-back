@@ -106,6 +106,12 @@ public class Usuario {
         this.aliados = aliados;
     }
 
+    // Crear una nueva publicación
+    public void crearPublicacion(String contenido) {
+        Publicación nuevaPublicacion = new Publicación(contenido, this);
+        this.publicaciones.add(nuevaPublicacion);
+    }
+
     
 
     
