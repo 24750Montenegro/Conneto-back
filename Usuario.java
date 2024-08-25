@@ -117,4 +117,12 @@ public class Usuario {
         this.publicaciones.remove(publicacion);
     }    
 
+    //Crear comentarios asociado a usuarios
+    public void crearComentario(Publicación publicacion, String contenido) {
+        // Crear un nuevo comentario con el usuario actual como autor
+        Comentario nuevoComentario = new Comentario(this, contenido);
+        // Añadir el comentario a la publicación
+        publicacion.agregarComentario(nuevoComentario);
+    }
+
 }
