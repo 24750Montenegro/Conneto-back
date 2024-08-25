@@ -63,6 +63,6 @@ public class Tarea {
     }
 	
 	public void completarTarea(){
-		// Se completara la tarea
+		this.completada = true;
 	}
 }
