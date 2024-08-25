@@ -112,8 +112,9 @@ public class Usuario {
         this.publicaciones.add(nuevaPublicacion);
     }
 
-    
-
-    
+    // Eliminar una publicación
+    public void eliminarPublicacion(Publicación publicacion) {
+        this.publicaciones.remove(publicacion);
+    }    
 
 }
