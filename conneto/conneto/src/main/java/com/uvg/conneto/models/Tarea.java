@@ -20,6 +20,7 @@ public class Tarea {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.asignado = asignado;
+        this.completada = false; // La tarea inicia como no completada
     }
 
     //Set y get de nombre
@@ -32,7 +33,7 @@ public class Tarea {
         return nombre;
     }
 
-    //Sets y gets de descripcion
+    //Set y get de descripcion
 
     public void setDescripcion(String descripcion){
         this.descripcion = descripcion;
@@ -52,7 +53,7 @@ public class Tarea {
         return asignado;
     }
 
-    //Set y get de usuarios
+    //Set y get de completada
 
     public void setCompletada(boolean completada){
         this.completada = completada;
@@ -62,6 +63,7 @@ public class Tarea {
         return completada;
     }
 	
+    // Método para marcar la tarea como completada
 	public void completarTarea(){
 		this.completada = true;
 	}
