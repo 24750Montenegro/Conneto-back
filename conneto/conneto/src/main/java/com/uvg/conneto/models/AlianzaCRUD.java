@@ -8,7 +8,7 @@ import java.util.List;
  * @author Marcelo Detlefsen
  * Creacion 25.08.2024
  * Ultima modificacion 25.08.2024
- * @ File Name: Publicación.java
+ * @ File Name: AlianzaCRUD.java
  */
 public class AlianzaCRUD 
 {
