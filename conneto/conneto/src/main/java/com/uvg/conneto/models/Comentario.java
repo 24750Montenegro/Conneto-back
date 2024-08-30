@@ -4,8 +4,17 @@ package com.uvg.conneto.models;
 //  @ Date : 10/08/2024
 //  @ Author : Alejandro Manuel Jerez Melgar 24678
 //
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "comentario")
 public class Comentario {
     //Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id;
     private Usuario autor;
     private String contenido;
 
