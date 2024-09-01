@@ -3,7 +3,7 @@ package com.uvg.conneto.models;
  * @ Project : Proyecto de Semestre, Conneto
  * @author Luis Girón
  * Creacion 10.08.2024
- * Ultima modificacion 25.08.2024
+ * Ultima modificacion 01.09.2024
  * @ File Name: Tarea.java
  * 
  */
@@ -15,8 +15,7 @@ import javax.persistence.*;
 @Table(name = "tarea")
 public class Tarea {
 
-    // Atributos de la 
-    
+    // Atributos
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -33,6 +32,11 @@ public class Tarea {
         this.descripcion = descripcion;
         this.asignado = asignado;
         this.completada = false; // La tarea inicia como no completada
+    }
+
+    //Constructor 2: Metodo secundario sin parametros
+    public Tarea() {
+        //Iniicializa un objeto tarea, sin asignarle ningun valor a sus atributos.
     }
 
     //Set y get de nombre
