@@ -11,9 +11,20 @@ import java.util.List;
  * @ File Name: Proyecto.java
  */
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "proyecto")
 public class Proyecto {
     
     // Atributos de la clase
+
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id; 
+
     private String nombre; // Se refiere al nombre con el cual se identifica el proyecto.
     private String descripcion; // una breve descripcion del proyecto a realizar
     private List<ODS> categoriaODS; // Una lista la cual contiene los ODS que aborda el proyecto a trabajar
