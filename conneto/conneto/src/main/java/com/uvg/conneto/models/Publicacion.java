@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "publicacion")
-public class Publicación 
+public class Publicacion 
 {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Publicación
      * @param contenido El contenido de la publicación.
      * @param autor El autor de la publicación.
      */
-    public Publicación(String contenido, Usuario autor)
+    public Publicacion(String contenido, Usuario autor)
     {
         this.contenido = contenido;
         this.autor = autor;

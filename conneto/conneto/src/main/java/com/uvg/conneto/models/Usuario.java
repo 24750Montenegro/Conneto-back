@@ -29,7 +29,7 @@ public class Usuario {
     private String contrasena;
     private String ubicacion;
     private List<String> habilidades;
-    private List<Publicación> publicaciones;
+    private List<Publicacion> publicaciones;
     private List<Proyecto> proyectos;
     private List<ODS> interesesODS;
     private List<Alianza> alianzas;
@@ -67,10 +67,10 @@ public class Usuario {
     public void setHabilidades(List<String> habilidades) {
         this.habilidades = habilidades;
     }
-    public List<Publicación> getPublicaciones() {
+    public List<Publicacion> getPublicaciones() {
         return publicaciones;
     }
-    public void setPublicaciones(List<Publicación> publicaciones) {
+    public void setPublicaciones(List<Publicacion> publicaciones) {
         this.publicaciones = publicaciones;
     }
     public List<Proyecto> getProyectos() {
@@ -103,7 +103,7 @@ public class Usuario {
     public Usuario() {
     }
     public Usuario(String nombre, String email, String contrasena, String ubicacion, List<String> habilidades,
-            List<Publicación> publicaciones, List<Proyecto> proyectos, List<ODS> interesesODS, List<Alianza> alianzas,
+            List<Publicacion> publicaciones, List<Proyecto> proyectos, List<ODS> interesesODS, List<Alianza> alianzas,
             List<Usuario> aliados) {
         this.nombre = nombre;
         this.email = email;
@@ -119,17 +119,17 @@ public class Usuario {
 
     // Crear una nueva publicación
     public void crearPublicacion(String contenido) {
-        Publicación nuevaPublicacion = new Publicación(contenido, this);
+        Publicacion nuevaPublicacion = new Publicacion(contenido, this);
         this.publicaciones.add(nuevaPublicacion);
     }
 
     // Eliminar una publicación
-    public void eliminarPublicacion(Publicación publicacion) {
+    public void eliminarPublicacion(Publicacion publicacion) {
         this.publicaciones.remove(publicacion);
     }    
 
     //Crear comentarios asociado a usuarios
-    public void crearComentario(Publicación publicacion, String contenido) {
+    public void crearComentario(Publicacion publicacion, String contenido) {
         // Crear un nuevo comentario con el usuario actual como autor
         Comentario nuevoComentario = new Comentario(this, contenido);
         // Añadir el comentario a la publicación
