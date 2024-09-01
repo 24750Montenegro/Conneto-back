@@ -9,8 +9,18 @@ package com.uvg.conneto.models;
  * @ File Name: ODS.java
  */
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "ods")
 public class ODS
 {
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id; 
+
     private String nombre;
     private String descripcion;
 

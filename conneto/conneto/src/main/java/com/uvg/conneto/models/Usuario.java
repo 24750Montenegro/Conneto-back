@@ -11,9 +11,19 @@ package com.uvg.conneto.models;
 
 import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 
     //Atributos
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id; 
+
+    
     private String nombre;
     private String email;
     private String contrasena;

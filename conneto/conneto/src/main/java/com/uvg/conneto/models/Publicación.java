@@ -9,8 +9,18 @@ import java.util.List;
  * @ File Name: Publicación.java
  */
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "publicacion")
 public class Publicación 
 {
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id; 
+
     private String contenido;
     private Usuario autor;
     private List<ODS> categoriaODS;

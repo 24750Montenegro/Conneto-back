@@ -7,9 +7,21 @@ package com.uvg.conneto.models;
  * @ File Name: Tarea.java
  * 
  */
+
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tarea")
 public class Tarea {
 
-    // Atributos de la clase
+    // Atributos de la 
+    
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Long id; 
+
     private String nombre; // Se refiere al nombre con el cual se identifica la tarea.
     private String descripcion; // una breve descripcion de la tarea a realizar
     private Usuario asignado; // El usuario que está asignado para realizar la tarea
