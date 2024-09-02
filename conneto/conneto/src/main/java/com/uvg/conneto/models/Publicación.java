@@ -5,12 +5,16 @@ import java.util.List;
  * @ Project : Proyecto de Semestre, Conneto
  * @author Marcelo Detlefsen
  * Creacion 09.08.2024
- * Ultima modificacion 09.08.2024
+ * Ultima modificacion 01.09.2024
  * @ File Name: Publicación.java
  */
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "publicacion")
@@ -21,11 +25,28 @@ public class Publicación
     @Column(unique = true, nullable = false)
     private Long id; 
 
+    @Column(name = "contenido")
     private String contenido;
+
+    @Column(name = "autor")
     private Usuario autor;
+
+    @Column(name = "categoriaODS")
     private List<ODS> categoriaODS;
+
+    @Column(name = "likes")
     private List<Usuario> likes;
+
+    @Column(name = "comentarios")
     private List<Comentario> comentarios;
+
+    /**
+     * Constructor modelo de la clase.
+     */
+    public Publicación()
+    {
+
+    }
 
     /**
      * Constructor para crear una nueva publicación.

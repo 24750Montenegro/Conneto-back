@@ -1,16 +1,19 @@
 package com.uvg.conneto.models;
 
-
 /**
  * @ Project : Proyecto de Semestre, Conneto
  * @author Marcelo Detlefsen
  * Creacion 09.08.2024
- * Ultima modificacion 09.08.2024
+ * Ultima modificacion 01.09.2024
  * @ File Name: ODS.java
  */
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "ods")
@@ -21,8 +24,19 @@ public class ODS
     @Column(unique = true, nullable = false)
     private Long id; 
 
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "descripcion")
     private String descripcion;
+
+    /**
+     * Constructor modelo de la clase.
+     */
+    public ODS()
+    {
+
+    }
 
     /**
      * Constructor para crear una nueva instancia de ODS.
