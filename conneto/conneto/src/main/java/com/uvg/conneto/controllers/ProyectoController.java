@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import com.uvg.conneto.models.Proyecto;
+import com.uvg.conneto.services.ProyectoService;
 import com.uvg.conneto.services.UsuarioService;
-
 import java.util.ArrayList;
 
 @RestController
