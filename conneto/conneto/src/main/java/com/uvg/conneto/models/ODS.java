@@ -1,11 +1,10 @@
 package com.uvg.conneto.models;
 
-
 /**
  * @ Project : Proyecto de Semestre, Conneto
  * @author Marcelo Detlefsen
  * Creacion 09.08.2024
- * Ultima modificacion 09.08.2024
+ * Ultima modificacion 01.09.2024
  * @ File Name: ODS.java
  */
 
@@ -28,6 +27,8 @@ public class ODS
 
     @Basic
     private String nombre;
+
+    @Column(name = "descripcion")
     private String descripcion;
 
     // /**

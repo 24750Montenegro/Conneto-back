@@ -1,13 +1,14 @@
 package com.uvg.conneto.models;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @ Project : Proyecto de Semestre, Conneto
  * @author Julián Divas
  * Creacion 09.08.2024
- * Ultima modificacion 09.08.2024
+ * @modifier Marcelo Detlefsen
+ * Ultima modificacion 25.08.2024
  * @ File Name: Proyecto.java
- * 
  */
 
 
