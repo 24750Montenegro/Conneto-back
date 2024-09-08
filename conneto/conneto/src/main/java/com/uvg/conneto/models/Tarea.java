@@ -3,7 +3,7 @@ package com.uvg.conneto.models;
  * @ Project : Proyecto de Semestre, Conneto
  * @author Luis Girón
  * Creacion 10.08.2024
- * Ultima modificacion 10.08.2024
+ * Ultima modificacion 01.09.2024
  * @ File Name: Tarea.java
  * 
  */
@@ -20,8 +20,7 @@ package com.uvg.conneto.models;
  @Entity
 public class Tarea {
 
-    // Atributos de la 
-    
+    // Atributos
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
