@@ -1,5 +1,4 @@
 package com.uvg.conneto.models;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
