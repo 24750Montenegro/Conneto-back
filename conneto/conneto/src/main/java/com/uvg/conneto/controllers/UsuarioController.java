@@ -1,6 +1,7 @@
 package com.uvg.conneto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,13 @@ public class UsuarioController {
         return this.usuarioService.guardarUsuario(usuario);
     }
 
-        @PostMapping("/signup")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/signup")
     public Usuario signUp(@RequestBody Usuario usuario) {
         return usuarioService.registrarUsuario(usuario);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public Usuario login(@RequestParam String email, @RequestParam String contrasena) {
         return usuarioService.autenticarUsuario(email, contrasena);
