@@ -5,57 +5,73 @@ package com.uvg.conneto.models;
 //  @ Author : Alejandro Manuel Jerez Melgar 24678
 //
 
-import javax.persistence.*;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "comentario")
 public class Comentario {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
     private Long id;
-    private Usuario autor;
+
     private String contenido;
 
-    //Constructor 1: 
-    /**
-     * 
-     * @param autor Usuario
-     * @param contenido String
-     */
-    public Comentario(Usuario autor, String contenido){
-        this.autor=autor;
-        this.contenido=contenido;
-    }
 
-    /**
-     * 
-     * @return autor
-     */
-    public Usuario getAutor() {
-        return autor;
-    }
-    /**
-     * 
-     * @param autor
-     */
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
-    }
+       // Relación muchos a uno con Publicacion
+       @ManyToOne
+       @JoinColumn(name = "publicacion_id")
+       private Publicación publicacion;
+   
+       // Relación muchos a uno con Usuario (autor)
+       @ManyToOne
+       @JoinColumn(name = "autor_id")
+       private Usuario autor;
 
-    /**
-     * 
-     * @return contenido
-     */
-    public String getContenido() {
-        return contenido;
-    }
-    /**
-     * 
-     * @param contenido
-     */
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
+    // //Constructor 1: 
+    // /**
+    //  * 
+    //  * @param autor Usuario
+    //  * @param contenido String
+    //  */
+    // public Comentario(Usuario autor, String contenido){
+    //     this.autor=autor;
+    //     this.contenido=contenido;
+    // }
+
+    // /**
+    //  * 
+    //  * @return autor
+    //  */
+    // public Usuario getAutor() {
+    //     return autor;
+    // }
+    // /**
+    //  * 
+    //  * @param autor
+    //  */
+    // public void setAutor(Usuario autor) {
+    //     this.autor = autor;
+    // }
+
+    // /**
+    //  * 
+    //  * @return contenido
+    //  */
+    // public String getContenido() {
+    //     return contenido;
+    // }
+    // /**
+    //  * 
+    //  * @param contenido
+    //  */
+    // public void setContenido(String contenido) {
+    //     this.contenido = contenido;
+    // }
 }
