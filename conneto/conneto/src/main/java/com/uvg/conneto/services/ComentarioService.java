@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class ComentarioService {
 
     private final ComentarioRepository comentarioRepository;
-    public void crearteComentario(Comentario comentario){
+    public void createComentario(Comentario comentario){
         comentarioRepository.save(comentario);
     }
 }
