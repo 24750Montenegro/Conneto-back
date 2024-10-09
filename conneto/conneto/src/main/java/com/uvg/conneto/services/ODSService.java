@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class ODSService 
 {
     private final ODSRepository odsRepository;
-    public void crearteComentario(ODS ods)
+    public void crearODS(ODS ods)
     {
         odsRepository.save(ods);
     }
