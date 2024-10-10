@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.uvg.conneto.services.UsuarioService;
+import com.uvg.conneto.models.Tarea;
 import com.uvg.conneto.models.Usuario;
 
 import java.util.ArrayList;
@@ -24,5 +25,10 @@ public class TareaController {
     @GetMapping()
     public ArrayList<Tarea> obtenerTareas() {
         return tareaService.obtenerTareas();
+    }
+
+    @PostMapping()
+    public Tarea guardarTarea(@RequestBody Tarea tarea) {
+        return this.tareaService.guardarTarea(tarea);
     }
 }
