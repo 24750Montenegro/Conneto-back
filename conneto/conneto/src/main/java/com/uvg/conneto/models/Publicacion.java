@@ -20,7 +20,7 @@ import java.util.Set;
  @AllArgsConstructor
  @NoArgsConstructor
  @Entity
-public class Publicación 
+public class Publicacion 
 {
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)

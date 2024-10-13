@@ -27,7 +27,7 @@ public class Comentario {
        // Relación muchos a uno con Publicacion
        @ManyToOne
        @JoinColumn(name = "publicacion_id")
-       private Publicación publicacion;
+       private Publicacion publicacion;
    
        // Relación muchos a uno con Usuario (autor)
        @ManyToOne

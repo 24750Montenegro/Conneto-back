@@ -34,13 +34,13 @@ public class Usuario {
     private String ubicacion;
 
     @ManyToMany(mappedBy = "likes")
-    private Set<Publicación> publicacionesQueLeGustan;
+    private Set<Publicacion> publicacionesQueLeGustan;
 
     @ElementCollection
     private List<String> habilidades;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
-    private List<Publicación> publicaciones;
+    private List<Publicacion> publicaciones;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
     private List<Proyecto> proyectos;
