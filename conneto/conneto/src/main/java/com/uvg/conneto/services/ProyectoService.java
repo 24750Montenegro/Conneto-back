@@ -2,7 +2,10 @@ package com.uvg.conneto.services;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uvg.conneto.models.ODS;
 import com.uvg.conneto.models.Proyecto;
+import com.uvg.conneto.repositories.ODSRepository;
 import com.uvg.conneto.repositories.ProyectoRepository;
 
 @Service
@@ -10,6 +13,7 @@ public class ProyectoService {
 
     @Autowired
     ProyectoRepository proyectoRepository;
+    ODSRepository odsRepository;
 
     public ArrayList<Proyecto> obtenerProyectos() {
         return (ArrayList<Proyecto>) proyectoRepository.findAll();
@@ -39,5 +43,14 @@ public class ProyectoService {
 
     public Proyecto obtenerProyectoPorId(Long id) {
         return proyectoRepository.findById(id).orElse(null);
+    }
+
+    public Proyecto agregarODSaProyecto(Long proyectoId, Long odsId) {
+        Proyecto proyecto = proyectoRepository.findById(proyectoId).orElseThrow(() -> 
+            new IllegalArgumentException("Proyecto no encontrado"));
+        ODS nuevoODS = odsRepository.findById(odsId).orElseThrow(() -> 
+            new IllegalArgumentException("ODS no encontrado"));
+        proyecto.getCategoriaODS().add(nuevoODS);
+        return proyectoRepository.save(proyecto);
     }
 }
