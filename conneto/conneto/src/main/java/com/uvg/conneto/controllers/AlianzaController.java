@@ -1,6 +1,7 @@
 package com.uvg.conneto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ public class AlianzaController {
         return AlianzaService.obtenerAlianzas();
     }
 
-    @PostMapping()
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("guardarAlianza")
     public void guardarAlianza(@RequestBody Alianza alianza){
         AlianzaService.createAlianza(alianza);
     }
