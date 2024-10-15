@@ -31,9 +31,9 @@ public class TareaController {
         return this.tareaService.guardarTarea(tarea);
     }
 
-    @PutMapping("/actualizarEstado")
-    public Tarea actualizarEstadoTarea(@RequestParam("nombre") String nombre, @RequestParam("completada") boolean completada) {
-        return tareaService.actualizarEstadoTareaPorNombre(nombre, completada);
+    @PutMapping("/completar")
+    public Tarea completarTarea(@RequestParam("id") Long id) {
+        return tareaService.actualizarEstadoTarea(id, true);
     }
 
 }

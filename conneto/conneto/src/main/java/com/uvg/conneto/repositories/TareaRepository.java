@@ -9,6 +9,6 @@ import com.uvg.conneto.models.Tarea;
 
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
-        Tarea findByNombre(String nombre);
+        Tarea findById(long id);
 
 }

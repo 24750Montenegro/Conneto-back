@@ -23,25 +23,22 @@ public class TareaService {
 
         public Tarea registrarTarea(Tarea tarea) {
         // Verificar si la tarea ya existe
-        if (tareaRepository.findByNombre(tarea.getNombre()) != null) {
+        if (tareaRepository.findById(tarea.getId()) != null) {
             throw new IllegalArgumentException("La tarea ya está registrado");
         }
         // Guardar la tarea en la base de datos
         return tareaRepository.save(tarea);
     }
     
-    public Tarea actualizarEstadoTareaPorNombre(String nombre, boolean completada) {
-        // Buscar la tarea por su nombre
-        Tarea tarea = tareaRepository.findByNombre(nombre);
-        
-        if (tarea == null) {
-            throw new IllegalArgumentException("Tarea no encontrada con el nombre: " + nombre);
-        }
+    public Tarea actualizarEstadoTarea(Long id, boolean completada) {
+        // Buscar la tarea por su ID
+        Tarea tarea = tareaRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Tarea no encontrada con el ID: " + id));
     
         // Actualizar el estado de completada
         tarea.setCompletada(completada);
     
         // Guardar la tarea actualizada en la base de datos
         return tareaRepository.save(tarea);
-    }    
+    }       
 }

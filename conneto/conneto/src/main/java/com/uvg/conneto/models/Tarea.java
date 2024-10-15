@@ -78,7 +78,11 @@ public class Tarea {
     return asignado;
     }
 
-    //Get de completada
+    //Set y Get de completada
+
+    public void setCompletada(boolean completada){
+        this.completada = completada;
+    }
 
     public boolean getCompletada(){
     return completada;
