@@ -45,6 +45,7 @@ public class PublicacionService
             Publicacion publicacion = publicacionExistente.get();
             publicacion.setContenido(publicacionActualizada.getContenido());
             publicacion.setCategoriaODS(publicacionActualizada.getCategoriaODS());
+            publicacion.setImagenURL(publicacionActualizada.getImagenURL());
             publicacion.setLikes(publicacionActualizada.getLikes());
             publicacion.setComentarios(publicacionActualizada.getComentarios());
             publicacionRepository.save(publicacion);

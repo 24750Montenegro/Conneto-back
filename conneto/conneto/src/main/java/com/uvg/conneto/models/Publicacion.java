@@ -30,6 +30,9 @@ public class Publicacion
     @Basic
     private String contenido;
 
+    @Basic
+    private String imagenURL;
+
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Usuario autor;
@@ -50,7 +53,7 @@ public class Publicacion
     )
     private Set<Usuario> likes;
 
-    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publicacion_comentario", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
 
     // /**
