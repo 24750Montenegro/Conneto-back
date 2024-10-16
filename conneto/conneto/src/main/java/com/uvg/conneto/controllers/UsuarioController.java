@@ -31,13 +31,13 @@ public class UsuarioController {
         return this.usuarioService.guardarUsuario(usuario);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://conneto-front.vercel.app")
     @PostMapping("/signup")
     public Usuario signUp(@RequestBody Usuario usuario) {
         return usuarioService.registrarUsuario(usuario);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://conneto-front.vercel.app")
     @PostMapping("/login")
     public Usuario login(@RequestParam String email, @RequestParam String contrasena) {
         return usuarioService.autenticarUsuario(email, contrasena);
