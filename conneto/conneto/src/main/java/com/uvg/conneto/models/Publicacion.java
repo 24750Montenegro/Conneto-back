@@ -53,7 +53,7 @@ public class Publicacion
     )
     private Set<Usuario> likes;
 
-    @OneToMany(mappedBy = "publicacion_comentario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
 
     // /**
