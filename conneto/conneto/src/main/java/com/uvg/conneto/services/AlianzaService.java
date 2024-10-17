@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AlianzaService {
+public class AlianzaService {   
     private final AlianzaRepository AlianzaRepository;
     public void createAlianza(Alianza alianza){
         AlianzaRepository.save(alianza);
