@@ -9,26 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.uvg.conneto.services.AlianzaService;
+import com.uvg.conneto.services.ComentarioService;
 import com.uvg.conneto.models.Alianza;
+import com.uvg.conneto.models.Comentario;
 
 import java.util.ArrayList;
 
+
 @RestController
 @RequestMapping("/alianza")
-public class AlianzaController {
-
+public class ComentarioController {
     @Autowired
-    private AlianzaService AlianzaService;
+    private ComentarioService ComentarioService;
 
-    @GetMapping()
-    public ArrayList<Alianza> obtenerAlianzas(){
-        return AlianzaService.obtenerAlianzas();
-    }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("guardarAlianza")
-    public void guardarAlianza(@RequestBody Alianza alianza){
-        AlianzaService.createAlianza(alianza);
+    @PostMapping("guardarCOmentario")
+    public void guardarComentario(@RequestBody Comentario comentario){
+        ComentarioService.createComentario(comentario);
     }
-    
 }
