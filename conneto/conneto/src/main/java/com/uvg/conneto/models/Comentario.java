@@ -6,7 +6,12 @@ package com.uvg.conneto.models;
 //
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,15 +29,15 @@ public class Comentario {
     private String contenido;
 
 
-       // Relación muchos a uno con Publicacion
-       @ManyToOne
-       @JoinColumn(name = "publicacion_id")
-       private Publicacion publicacion;
-   
-       // Relación muchos a uno con Usuario (autor)
-       @ManyToOne
-       @JoinColumn(name = "autor_id")
-       private Usuario autor;
+    // Relación muchos a uno con Publicacion
+    @ManyToOne
+    @JoinColumn(name = "publicacion_id")
+    private Publicacion publicacion;
+
+    // Relación muchos a uno con Usuario (autor)
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Usuario autor;
 
     // //Constructor 1: 
     // /**

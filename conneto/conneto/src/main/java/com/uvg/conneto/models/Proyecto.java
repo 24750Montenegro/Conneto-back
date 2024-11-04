@@ -1,26 +1,25 @@
 package com.uvg.conneto.models;
 import java.util.List;
 
-/**
- * @ Project : Proyecto de Semestre, Conneto
- * @author Julián Divas
- * Creacion 09.08.2024
- * @modifier Marcelo Detlefsen
- * Ultima modificacion 25.08.2024
- * @ File Name: Proyecto.java
- */
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
-
- import jakarta.persistence.*;
- import lombok.AllArgsConstructor;
- import lombok.Data;
- import lombok.NoArgsConstructor;
- 
- @Data
- @AllArgsConstructor
- @NoArgsConstructor
- @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Proyecto {
     
     // Atributos de la clase
