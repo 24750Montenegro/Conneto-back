@@ -2,6 +2,9 @@ package com.uvg.conneto.models;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -34,6 +37,7 @@ public class Publicacion
     private String imagenURL;
 
     @ManyToOne
+    @JsonIgnoreProperties("publicaciones")
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 

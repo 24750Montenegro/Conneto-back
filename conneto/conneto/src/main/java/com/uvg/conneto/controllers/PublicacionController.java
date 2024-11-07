@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class PublicacionController
     private final PublicacionService publicacionService;
 
     // Crear Publicación
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/crear")
     public ResponseEntity<Publicacion> crearPublicacion(@RequestBody Publicacion publicacion) 
     {
@@ -45,6 +47,7 @@ public class PublicacionController
     }
 
     // Obtener todas las Publicaciones
+     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/todas")
     public ResponseEntity<List<Publicacion>> obtenerTodasPublicaciones() 
     {
