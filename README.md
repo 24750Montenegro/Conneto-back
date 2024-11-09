@@ -22,33 +22,37 @@ Para comenzar a trabajar con el backend de Conneto, sigue estos pasos:
 
 1. Clona el repositorio en tu máquina local utilizando el siguiente comando:
  
-   git clone 
+   `git clone `
  
 2. Dirígete al directorio del proyecto:
  
-   cd Conneto-backend
+   `cd Conneto-backend`
  
 3. Verifica las credenciales de la base de datos en el archivo `application.properties`, ubicado en:
- 
-  conneto/conneto/src/main/resources/application.properties
-  
+
+   ```bash
+   conneto/conneto/src/main/resources/application.properties
+     ```
+
    Aquí deberás verificar que las siguientes configuraciones estén correctas:
    - **usuario**: el nombre de usuario de tu base de datos MySQL.
    - **contraseña**: la contraseña del usuario.
    - **url de la base de datos**: la URL de la base de datos a la que se conectará.
 
    Un ejemplo de configuración podría ser:
-   
+
+      ```bash
       spring.application.name=connetodb
       spring.datasource.url=jdbc:mysql://localhost:3306/connetodb
       spring.datasource.username=root
       spring.datasource.password=123
 
 
-4. Dirígete al archivo principal `Application.java`, ubicado en:
-   conneto/conneto/src/main/java/com/uvg/conneto/ConnetoApplication.java
+5. Dirígete al archivo principal `Application.java`, ubicado en:
+   ```bash
+     conneto/conneto/src/main/java/com/uvg/conneto/ConnetoApplication.java
 
-5. Una vez que hayas revisado todo, puedes iniciar la aplicación ejecutando el archivo `Application.java` desde tu IDE 
+6. Una vez que hayas revisado todo, puedes iniciar la aplicación ejecutando el archivo `Application.java` desde tu IDE 
 o con alguna extensión (en Visual es recomendable instalar Spring Boot Extension Pack) también se puede escribir el comando:
    ./mvnw spring-boot:run
    (no es recomendable utilizar el comando ya que aveces no funciona correctamente)
