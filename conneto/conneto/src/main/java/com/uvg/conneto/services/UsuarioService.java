@@ -1,6 +1,7 @@
 package com.uvg.conneto.services;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class UsuarioService {
 
     public ArrayList<Usuario> obtenerUsuarios(){
         return (ArrayList<Usuario>) usuarioRepository.findAll();
+    }
+
+    public Optional<Usuario> getUserById(Long id) {
+        return usuarioRepository.findById(id);
     }
 
     public Usuario guardarUsuario(Usuario usuario){
@@ -37,6 +42,19 @@ public class UsuarioService {
             throw new IllegalArgumentException("Credenciales incorrectas");
         }
         return usuario;
+    }
+
+    public Usuario updateUser(Long userId, Usuario usuarioActualizado) {
+        Usuario usuarioExistente = usuarioRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        usuarioExistente.setNombre(usuarioActualizado.getNombre());
+        usuarioExistente.setEmail(usuarioActualizado.getEmail());
+        usuarioExistente.setContrasena(usuarioActualizado.getContrasena());
+        usuarioExistente.setUbicacion(usuarioActualizado.getUbicacion());
+        usuarioExistente.setAvatar(usuarioActualizado.getAvatar());
+
+        return usuarioRepository.save(usuarioExistente);
     }
     
 }
