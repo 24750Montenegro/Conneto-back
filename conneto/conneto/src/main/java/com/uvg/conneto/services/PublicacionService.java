@@ -1,6 +1,7 @@
 package com.uvg.conneto.services;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import com.uvg.conneto.models.Comentario;
 import com.uvg.conneto.models.ODS;
 import com.uvg.conneto.models.Publicacion;
 import com.uvg.conneto.models.Usuario;
+import com.uvg.conneto.repositories.ODSRepository;
 import com.uvg.conneto.repositories.PublicacionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,19 @@ import lombok.RequiredArgsConstructor;
 public class PublicacionService 
 {
     private final PublicacionRepository publicacionRepository;
+    private final ODSRepository odsRepository;
 
     // Crear Publicación
     public void crearPublicacion(Publicacion publicacion) 
     {
+        List<ODS> odsList = publicacion.getCategoriaODS();
+        if (odsList != null && !odsList.isEmpty()) 
+        {
+            List<ODS> existingOds = odsRepository.findAllById(
+                    odsList.stream().map(ODS::getId).collect(Collectors.toList())
+            );
+            publicacion.setCategoriaODS(existingOds);
+        }
         publicacionRepository.save(publicacion);
     }
 

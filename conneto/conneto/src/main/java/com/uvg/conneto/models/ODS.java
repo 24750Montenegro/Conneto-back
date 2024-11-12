@@ -8,12 +8,15 @@ package com.uvg.conneto.models;
  * @ File Name: ODS.java
  */
 
+import java.util.List;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +36,9 @@ public class ODS
 
     @Column(name = "descripcion")
     private String descripcion;
+
+    @ManyToMany(mappedBy = "categoriaODS")
+    private List<Publicacion> publicacion;
 
     // /**
     //  * Constructor para crear una nueva instancia de ODS.
