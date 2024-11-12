@@ -6,6 +6,8 @@ package com.uvg.conneto.models;
 //
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +34,7 @@ public class Comentario {
     // Relación muchos a uno con Publicacion
     @ManyToOne
     @JoinColumn(name = "publicacion_id")
+    @JsonIgnoreProperties("comentarios")
     private Publicacion publicacion;
 
     // Relación muchos a uno con Usuario (autor)

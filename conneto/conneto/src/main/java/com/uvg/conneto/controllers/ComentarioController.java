@@ -26,10 +26,9 @@ public class ComentarioController {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{publicacionId}")
     public ResponseEntity<List<Map<String, Object>>> obtenerComentariosPorPublicacion(
-            @PathVariable Long publicacionId,
-            @RequestParam(defaultValue = "3") int cantidad) {
-        List<Map<String, Object>> comentarios = comentarioService.obtenerComentariosPorPublicacion(publicacionId,
-                cantidad);
+            @PathVariable Long publicacionId) {
+        // Llama al servicio para obtener todos los comentarios sin limitarlos
+        List<Map<String, Object>> comentarios = comentarioService.obtenerComentariosPorPublicacion(publicacionId);
         return ResponseEntity.ok(comentarios);
     }
 }

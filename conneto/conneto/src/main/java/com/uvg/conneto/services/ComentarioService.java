@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import com.uvg.conneto.models.Comentario;
 import com.uvg.conneto.repositories.ComentarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,15 +19,18 @@ public class ComentarioService {
         comentarioRepository.save(comentario);
     }
 
-    public List<Map<String, Object>> obtenerComentariosPorPublicacion(Long publicacionId, int cantidad) {
-    List<Comentario> comentarios = comentarioRepository.findByPublicacionId(publicacionId, PageRequest.of(0, cantidad));
-
-    return comentarios.stream().map(comentario -> {
-        Map<String, Object> comentarioMap = new HashMap<>();
-        comentarioMap.put("id", comentario.getId());
-        comentarioMap.put("username", comentario.getAutor().getNombre()); // Ajusta al nombre del autor
-        comentarioMap.put("text", comentario.getContenido()); // Ajusta al contenido del comentario
-        return comentarioMap;
-    }).collect(Collectors.toList());
-}
+    public List<Map<String, Object>> obtenerComentariosPorPublicacion(Long publicacionId) {
+        // Llama al repositorio sin paginación
+        List<Comentario> comentarios = comentarioRepository.findByPublicacionId(publicacionId);
+    
+        // Transforma la lista de comentarios a un mapa
+        return comentarios.stream().map(comentario -> {
+            Map<String, Object> comentarioMap = new HashMap<>();
+            comentarioMap.put("id", comentario.getId());
+            comentarioMap.put("username", comentario.getAutor().getNombre());
+            comentarioMap.put("text", comentario.getContenido());
+            comentarioMap.put("avatar", comentario.getAutor().getAvatar());
+            return comentarioMap;
+        }).collect(Collectors.toList());
+    }
 }

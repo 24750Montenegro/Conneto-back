@@ -43,7 +43,7 @@ public class Usuario {
     private List<String> habilidades;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("autor")
+    @JsonIgnoreProperties(value= {"autor", "comentarios"})
     private List<Publicacion> publicaciones;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)

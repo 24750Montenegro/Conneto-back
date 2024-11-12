@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
 
 import com.uvg.conneto.services.AlianzaService;
 import com.uvg.conneto.models.Alianza;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/alianza")
@@ -21,9 +22,10 @@ public class AlianzaController {
     private AlianzaService AlianzaService;
 
     @GetMapping()
-    public ArrayList<Alianza> obtenerAlianzas(){
-        return AlianzaService.obtenerAlianzas();
-    }
+    public ResponseEntity<List<Alianza>> obtenerAlianzas() {
+    List<Alianza> alianzas = AlianzaService.obtenerAlianzas();
+    return ResponseEntity.ok(alianzas);
+}
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("guardarAlianza")
