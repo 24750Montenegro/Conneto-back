@@ -50,12 +50,14 @@ public class Publicacion
     private List<ODS> categoriaODS;
 
     @ManyToMany
+    @JsonIgnoreProperties(value = {"publicaciones","likes","publicacionesQueLeGustan"})
     @JoinTable(
         name = "publicacion_likes",
         joinColumns = @JoinColumn(name = "publicacion_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private Set<Usuario> likes;
+    private List<Usuario> likes;
+    
 
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
