@@ -2,6 +2,8 @@ package com.uvg.conneto.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 //  @ Proyecto Fase 2
 //  @ File Name : Alianza.java
 //  @ Date : 10/08/2024
@@ -32,6 +34,7 @@ public class Alianza {
         joinColumns = @JoinColumn(name = "alianza_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
+    @JsonIgnoreProperties(value= {"publicaciones", "proyectos","aliados","alianzas","interesesODS","contrasena","publicacionesQueLeGustan","habilidades","email","ubicacion"})
     private List<Usuario> usuarios;
 
     @OneToMany(mappedBy = "alianza", cascade = CascadeType.ALL)
