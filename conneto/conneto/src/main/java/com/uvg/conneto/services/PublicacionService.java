@@ -80,13 +80,5 @@ public class PublicacionService
         publicacion.getComentarios().add(comentario);
         publicacionRepository.save(publicacion);
     }
-
-    public Set<Usuario> obtenerLikesDePublicacion(Long publicacionId) {
-        Optional<Publicacion> publicacionOpt = obtenerPublicacionPorId(publicacionId);
-        if (publicacionOpt.isPresent()) {
-            return publicacionOpt.get().getLikes();
-        }
-        return Collections.emptySet(); // Retorna un conjunto vacío si no se encuentra la publicación
-    }
     
 }
