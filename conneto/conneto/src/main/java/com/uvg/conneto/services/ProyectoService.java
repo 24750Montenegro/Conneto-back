@@ -75,4 +75,5 @@ public class ProyectoService {
         nuevaTarea.setProyecto(proyecto);
         return tareaRepository.save(nuevaTarea);
     }
+
 }
