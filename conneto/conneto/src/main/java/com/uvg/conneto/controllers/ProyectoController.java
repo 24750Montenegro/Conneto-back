@@ -22,7 +22,8 @@ public class ProyectoController {
     @Autowired
     private ProyectoService proyectoService;
 
-    @GetMapping()   
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/obtenerProyectos")   
     public ArrayList<Proyecto> obtenerProyectos() {
         return this.proyectoService.obtenerProyectos();
     }
