@@ -34,11 +34,12 @@ public class Comentario {
     // Relación muchos a uno con Publicacion
     @ManyToOne
     @JoinColumn(name = "publicacion_id")
-    @JsonIgnoreProperties("comentarios")
+    @JsonIgnoreProperties(value = {"likes","comentarios"})
     private Publicacion publicacion;
 
     // Relación muchos a uno con Usuario (autor)
     @ManyToOne
+    @JsonIgnoreProperties(value = {"publicacionesQueLeGustan", "publicaciones", "likes"})
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
