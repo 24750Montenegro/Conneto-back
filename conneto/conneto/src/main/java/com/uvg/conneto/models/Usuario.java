@@ -12,6 +12,8 @@ package com.uvg.conneto.models;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +34,7 @@ public class Usuario {
     private String email;
     private String contrasena;
     private String ubicacion;
+    private String avatar;
 
     @ManyToMany(mappedBy = "likes")
     private Set<Publicacion> publicacionesQueLeGustan;
@@ -40,6 +43,7 @@ public class Usuario {
     private List<String> habilidades;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value= {"autor", "comentarios"})
     private List<Publicacion> publicaciones;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)

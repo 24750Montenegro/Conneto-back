@@ -2,6 +2,9 @@ package com.uvg.conneto.models;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -34,6 +37,7 @@ public class Publicacion
     private String imagenURL;
 
     @ManyToOne
+    @JsonIgnoreProperties("publicaciones")
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
@@ -46,12 +50,14 @@ public class Publicacion
     private List<ODS> categoriaODS;
 
     @ManyToMany
+    @JsonIgnoreProperties(value = {"publicaciones","likes","publicacionesQueLeGustan"})
     @JoinTable(
         name = "publicacion_likes",
         joinColumns = @JoinColumn(name = "publicacion_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private Set<Usuario> likes;
+    private List<Usuario> likes;
+    
 
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;

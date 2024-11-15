@@ -1,31 +1,34 @@
+// ComentarioController.java
 package com.uvg.conneto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import com.uvg.conneto.services.AlianzaService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import com.uvg.conneto.services.ComentarioService;
-import com.uvg.conneto.models.Alianza;
 import com.uvg.conneto.models.Comentario;
-
-import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/alianza")
+@RequestMapping("/comentarios")
 public class ComentarioController {
-    @Autowired
-    private ComentarioService ComentarioService;
 
+    @Autowired
+    private ComentarioService comentarioService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("guardarCOmentario")
-    public void guardarComentario(@RequestBody Comentario comentario){
-        ComentarioService.createComentario(comentario);
+    @PostMapping("/guardarComentario")
+    public ResponseEntity<String> guardarComentario(@RequestBody Comentario comentario) {
+        comentarioService.createComentario(comentario);
+        return ResponseEntity.ok("Comentario guardado exitosamente");
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/{publicacionId}")
+    public ResponseEntity<List<Map<String, Object>>> obtenerComentariosPorPublicacion(
+            @PathVariable Long publicacionId) {
+        // Llama al servicio para obtener todos los comentarios sin limitarlos
+        List<Map<String, Object>> comentarios = comentarioService.obtenerComentariosPorPublicacion(publicacionId);
+        return ResponseEntity.ok(comentarios);
     }
 }
