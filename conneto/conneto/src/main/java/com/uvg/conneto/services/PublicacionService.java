@@ -22,15 +22,13 @@ public class PublicacionService
     private final ODSRepository odsRepository;
 
     // Crear Publicación
-    public void crearPublicacion(Publicacion publicacion) 
-    {
-        List<ODS> odsList = publicacion.getCategoriaODS();
-        if (odsList != null && !odsList.isEmpty()) 
+    public void crearPublicacion(Publicacion publicacion) {
+        if (publicacion.getCategoriaODS() != null && !publicacion.getCategoriaODS().isEmpty()) 
         {
-            List<ODS> existingOds = odsRepository.findAllById(
-                    odsList.stream().map(ODS::getId).collect(Collectors.toList())
+            List<ODS> odsList = odsRepository.findAllById(
+                publicacion.getCategoriaODS().stream().map(ODS::getId).collect(Collectors.toList())
             );
-            publicacion.setCategoriaODS(existingOds);
+            publicacion.setCategoriaODS(odsList);
         }
         publicacionRepository.save(publicacion);
     }
@@ -50,15 +48,21 @@ public class PublicacionService
     // Actualizar Publicación
     public void actualizarPublicacion(Long id, Publicacion publicacionActualizada) 
     {
-        Optional<Publicacion> publicacionExistente = publicacionRepository.findById(id);
-        if (publicacionExistente.isPresent()) {
-
-            Publicacion publicacion = publicacionExistente.get();
+        Optional<Publicacion> publicacionOpt = publicacionRepository.findById(id);
+        if (publicacionOpt.isPresent()) 
+        {
+            Publicacion publicacion = publicacionOpt.get();
             publicacion.setContenido(publicacionActualizada.getContenido());
-            publicacion.setCategoriaODS(publicacionActualizada.getCategoriaODS());
             publicacion.setImagenURL(publicacionActualizada.getImagenURL());
-            publicacion.setLikes(publicacionActualizada.getLikes());
-            publicacion.setComentarios(publicacionActualizada.getComentarios());
+
+            if (publicacionActualizada.getCategoriaODS() != null) 
+            {
+                List<ODS> odsList = odsRepository.findAllById(
+                    publicacionActualizada.getCategoriaODS().stream().map(ODS::getId).collect(Collectors.toList())
+                );
+                publicacion.setCategoriaODS(odsList);
+            }
+
             publicacionRepository.save(publicacion);
         }
     }

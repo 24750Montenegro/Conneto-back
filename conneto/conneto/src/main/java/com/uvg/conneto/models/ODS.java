@@ -38,7 +38,7 @@ public class ODS
     private String descripcion;
 
     @ManyToMany(mappedBy = "categoriaODS")
-    private List<Publicacion> publicacion;
+    private List<Publicacion> publicaciones;
 
     // /**
     //  * Constructor para crear una nueva instancia de ODS.

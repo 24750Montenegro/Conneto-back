@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,15 @@ public class PublicacionController
     @GetMapping("/todas")
     public ResponseEntity<List<Publicacion>> obtenerTodasPublicaciones() 
     {
-        return ResponseEntity.ok(publicacionService.obtenerTodasPublicaciones());
+        List<Publicacion> publicaciones = publicacionService.obtenerTodasPublicaciones();
+        
+        publicaciones.forEach(publicacion -> {
+            publicacion.setCategoriaODS(publicacion.getCategoriaODS().stream()
+                .map(ods -> new ODS(ods.getId(), ods.getNombre(), null, null))
+                .collect(Collectors.toList()));
+        });
+        
+        return ResponseEntity.ok(publicaciones);
     }
 
     // Actualizar Publicación
