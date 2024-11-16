@@ -38,6 +38,7 @@ public class Alianza {
     private List<Usuario> usuarios;
 
     @OneToMany(mappedBy = "alianza", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value={"alianza"})
     private List<Proyecto> proyectos;
     
 

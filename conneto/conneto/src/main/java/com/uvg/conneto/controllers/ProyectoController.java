@@ -23,7 +23,7 @@ public class ProyectoController {
     private ProyectoService proyectoService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/obtenerProyectos")   
+    @GetMapping("/obtenerProyectos")
     public ArrayList<Proyecto> obtenerProyectos() {
         return this.proyectoService.obtenerProyectos();
     }
@@ -35,39 +35,47 @@ public class ProyectoController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping ("/{proyectoId}/ods/{odsId}")
+    @PostMapping("/{proyectoId}/ods/{odsId}")
     public Proyecto agregarODSaProyecto(@PathVariable Long proyectoId, @PathVariable Long odsId) {
         return proyectoService.agregarODSaProyecto(proyectoId, odsId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping ("/{proyectoId}/usuario/{usuarioId}")
-    public Proyecto agregarUsuario(@PathVariable Long proyectoId, @PathVariable Long odsId){
+    @PostMapping("/{proyectoId}/usuario/{usuarioId}")
+    public Proyecto agregarUsuario(@PathVariable Long proyectoId, @PathVariable Long odsId) {
         return proyectoService.nuevoUsuario(proyectoId, odsId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{proyectoId}/tarea/{tareaId}")
-    public Tarea agregarTareaProyecto(@PathVariable Long proyectoId, @RequestBody Tarea nuevaTarea){
+    public Tarea agregarTareaProyecto(@PathVariable Long proyectoId, @RequestBody Tarea nuevaTarea) {
         return proyectoService.agregarTareaProyecto(proyectoId, nuevaTarea);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/actualizarProyecto")
-    public Proyecto actualizarProyecto(@PathVariable Long id, @RequestBody Proyecto proyecto ){
+    public Proyecto actualizarProyecto(@PathVariable Long id, @RequestBody Proyecto proyecto) {
         return proyectoService.actualizarProyecto(id, proyecto);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/eliminarproyecto")
-    public void eliminarProyecto(@PathVariable Long id){
+    public void eliminarProyecto(@PathVariable Long id) {
         proyectoService.eliminarProyecto(id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/obtenerProyecto")
-    public Proyecto obtenerProyectoporID(@PathVariable Long id){
+    public Proyecto obtenerProyectoporID(@PathVariable Long id) {
         return proyectoService.obtenerProyectoPorId(id);
     }
-}
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/{alianzaId}/crearProyecto")
+    public Proyecto crearProyectoEnAlianza(
+            @PathVariable Long alianzaId,
+            @RequestBody Proyecto proyecto) {
+        return proyectoService.guardarProyectoEnAlianza(alianzaId, proyecto);
+    }
+
+}
