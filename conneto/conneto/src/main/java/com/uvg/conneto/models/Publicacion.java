@@ -20,27 +20,52 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa una publicación en el sistema.
+ * 
+ * Cada publicación puede tener contenido textual, una imagen asociada, un autor, categorías ODS, 
+ * una lista de usuarios que han dado "like" y una lista de comentarios.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Publicacion 
-{
-    @Id 
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id; 
+public class Publicacion {
 
+    /**
+     * Identificador único de la publicación.
+     * Generado automáticamente mediante {@code GenerationType.IDENTITY}.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    /**
+     * Contenido textual de la publicación.
+     */
     @Basic
     private String contenido;
 
+    /**
+     * URL de la imagen asociada a la publicación.
+     */
     @Basic
     private String imagenURL;
 
+    /**
+     * Autor de la publicación.
+     * Relación de muchos a uno con la entidad {@link Usuario}.
+     * Se ignoran las propiedades recursivas de publicaciones al serializar.
+     */
     @ManyToOne
     @JsonIgnoreProperties("publicaciones")
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
+    /**
+     * Categorías ODS asociadas a la publicación.
+     * Relación de muchos a muchos con la entidad {@link ODS}, cargada con una estrategia EAGER.
+     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "publicacion_ods",
@@ -49,16 +74,25 @@ public class Publicacion
     )
     private List<ODS> categoriaODS;
 
+    /**
+     * Lista de usuarios que han dado "like" a la publicación.
+     * Relación de muchos a muchos con la entidad {@link Usuario}.
+     * Se ignoran las propiedades recursivas específicas relacionadas con "likes" y otras publicaciones.
+     */
     @ManyToMany
-    @JsonIgnoreProperties(value = {"publicaciones","likes","publicacionesQueLeGustan"})
+    @JsonIgnoreProperties(value = {"publicaciones", "likes", "publicacionesQueLeGustan"})
     @JoinTable(
         name = "publicacion_likes",
         joinColumns = @JoinColumn(name = "publicacion_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> likes;
-    
 
+    /**
+     * Lista de comentarios asociados a la publicación.
+     * Relación de uno a muchos con la entidad {@link Comentario}.
+     * Los comentarios se eliminan automáticamente en cascada cuando se elimina la publicación.
+     */
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
 
