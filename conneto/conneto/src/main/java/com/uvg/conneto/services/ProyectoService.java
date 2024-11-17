@@ -1,12 +1,15 @@
 package com.uvg.conneto.services;
+
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uvg.conneto.models.Alianza;
 import com.uvg.conneto.models.ODS;
 import com.uvg.conneto.models.Proyecto;
 import com.uvg.conneto.models.Tarea;
 import com.uvg.conneto.models.Usuario;
+import com.uvg.conneto.repositories.AlianzaRepository;
 import com.uvg.conneto.repositories.ODSRepository;
 import com.uvg.conneto.repositories.ProyectoRepository;
 import com.uvg.conneto.repositories.TareaRepository;
@@ -52,28 +55,39 @@ public class ProyectoService {
     }
 
     public Proyecto agregarODSaProyecto(Long proyectoId, Long odsId) {
-        Proyecto proyecto = proyectoRepository.findById(proyectoId).orElseThrow(() -> 
-            new IllegalArgumentException("No se encontró el proyecto"));
-        ODS nuevoODS = odsRepository.findById(odsId).orElseThrow(() -> 
-            new IllegalArgumentException("No fue posible encontrar el ODS"));
+        Proyecto proyecto = proyectoRepository.findById(proyectoId)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el proyecto"));
+        ODS nuevoODS = odsRepository.findById(odsId)
+                .orElseThrow(() -> new IllegalArgumentException("No fue posible encontrar el ODS"));
         proyecto.getCategoriaODS().add(nuevoODS);
         return proyectoRepository.save(proyecto);
     }
 
-    public Proyecto nuevoUsuario(Long proyectoId, Long usuarioId){
+    public Proyecto nuevoUsuario(Long proyectoId, Long usuarioId) {
         Proyecto proyecto = proyectoRepository.findById(proyectoId)
-            .orElseThrow(() -> new IllegalArgumentException("No se encontró el proyecto"));
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el proyecto"));
         Usuario nuevoUsuario = usuarioRepository.findById(usuarioId)
-            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
         proyecto.getUsuarios().add(nuevoUsuario);
         return proyectoRepository.save(proyecto);
     }
 
-    public Tarea agregarTareaProyecto(Long proyectoId, Tarea nuevaTarea){
+    public Tarea agregarTareaProyecto(Long proyectoId, Tarea nuevaTarea) {
         Proyecto proyecto = proyectoRepository.findById(proyectoId)
-            .orElseThrow(() -> new IllegalArgumentException("No fue posible encontrar el proyecto"));
+                .orElseThrow(() -> new IllegalArgumentException("No fue posible encontrar el proyecto"));
         nuevaTarea.setProyecto(proyecto);
         return tareaRepository.save(nuevaTarea);
     }
+
+    @Autowired
+    private AlianzaRepository AlianzaRepository;
+    public Proyecto guardarProyectoEnAlianza(Long alianzaId, Proyecto proyecto) {
+        Alianza alianza = AlianzaRepository.findById(alianzaId)
+            .orElseThrow(() -> new IllegalArgumentException("Alianza no encontrada"));
+    
+        proyecto.setAlianza(alianza);
+        return proyectoRepository.save(proyecto);
+    }
+    
 
 }

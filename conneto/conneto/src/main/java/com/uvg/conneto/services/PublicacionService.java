@@ -1,8 +1,6 @@
 package com.uvg.conneto.services;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -79,14 +77,6 @@ public class PublicacionService
     {
         publicacion.getComentarios().add(comentario);
         publicacionRepository.save(publicacion);
-    }
-
-    public Set<Usuario> obtenerLikesDePublicacion(Long publicacionId) {
-        Optional<Publicacion> publicacionOpt = obtenerPublicacionPorId(publicacionId);
-        if (publicacionOpt.isPresent()) {
-            return publicacionOpt.get().getLikes();
-        }
-        return Collections.emptySet(); // Retorna un conjunto vacío si no se encuentra la publicación
     }
     
 }
