@@ -80,6 +80,7 @@ public class PublicacionController
     }
 
     // Eliminar Publicación
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarPublicacion(@PathVariable Long id) 
     {
