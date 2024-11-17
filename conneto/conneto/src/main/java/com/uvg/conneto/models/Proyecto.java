@@ -1,6 +1,8 @@
 package com.uvg.conneto.models;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -53,6 +55,7 @@ public class Proyecto {
     private List<Usuario> usuarios; // Una lista con los participantes del proyecto
 
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Tarea> tareas; // Otra lista con las tareas a realizar en el proyecto para que este se lleve a cabo
 
     @ManyToOne

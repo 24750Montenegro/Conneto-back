@@ -1,6 +1,8 @@
 package com.uvg.conneto.services;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +10,17 @@ import org.springframework.stereotype.Service;
 import com.uvg.conneto.models.Tarea;
 import com.uvg.conneto.repositories.TareaRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class TareaService {
     @Autowired
     TareaRepository tareaRepository;
+
+        // Método para obtener tareas por ID de proyecto
+    public List<Tarea> obtenerTareasPorProyecto(Long proyectoId) {
+            return tareaRepository.findByProyectoId(proyectoId);
+    }
 
     public ArrayList<Tarea> obtenerTareas(){
         return (ArrayList<Tarea>) tareaRepository.findAll();
@@ -19,6 +28,15 @@ public class TareaService {
 
     public Tarea guardarTarea(Tarea tarea){
         return tareaRepository.save(tarea);
+    }
+
+    //eliminar tarea por id
+    public void eliminarTareaPorId(Long tareaId) {
+        if (tareaRepository.existsById(tareaId)) {
+            tareaRepository.deleteById(tareaId);
+        } else {
+            throw new EntityNotFoundException("La tarea con ID " + tareaId + " no existe.");
+        }
     }
 
         public Tarea registrarTarea(Tarea tarea) {
@@ -44,4 +62,18 @@ public class TareaService {
         // Guardar la tarea actualizada en la base de datos
         return tareaRepository.save(tarea);
     }    
+
+
+        // Método para alternar el estado de la tarea
+    public Tarea alternarEstadoTarea(Long tareaId) {
+        Optional<Tarea> tareaOptional = tareaRepository.findById(tareaId);
+        
+        if (tareaOptional.isPresent()) {
+            Tarea tarea = tareaOptional.get();
+            tarea.setCompletada(!tarea.getCompletada()); // Alternar estado
+            return tareaRepository.save(tarea); // Guardar cambios
+        } else {
+            throw new EntityNotFoundException("La tarea con ID " + tareaId + " no existe.");
+        }
+    }
 }

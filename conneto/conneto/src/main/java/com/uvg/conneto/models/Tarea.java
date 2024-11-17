@@ -9,6 +9,8 @@ package com.uvg.conneto.models;
  */
 
 
+ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+ 
  import jakarta.persistence.*;
  import lombok.AllArgsConstructor;
  import lombok.Data;
@@ -33,10 +35,12 @@ public class Tarea {
 
 
     @ManyToOne
+    @JsonIgnoreProperties(value = {"publicacionesQueLeGustan", "publicaciones", "likes"})
     @JoinColumn(name = "asignado_id")
     private Usuario asignado; // El usuario que está asignado para realizar la tarea
     
     @ManyToOne
+    @JsonIgnoreProperties(value= {"autor", "usuarios","tareas", "alianza"})
     @JoinColumn(name = "proyecto_id")
     private Proyecto proyecto;
 
