@@ -16,21 +16,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AlianzaService {   
     private final AlianzaRepository AlianzaRepository;
+    private final AlianzaRepository alianzaRepository;
+    private final UsuarioRepository usuarioRepository;
+    //metodo para crear alianza
     public void createAlianza(Alianza alianza){
         AlianzaRepository.save(alianza);
     }
 
+    //metodo para conseguir el  ArrayList de todas las alianzas
     public ArrayList<Alianza> obtenerAlianzas(){
         return (ArrayList<Alianza>) AlianzaRepository.findAll();
     }
 
+    //metodo par aconseguir una alianza en especifico
     public Alianza obtenerAlianzaPorId(Long id) {
         return AlianzaRepository.findById(id).orElse(null);
     }
 
-    private final AlianzaRepository alianzaRepository;
-    private final UsuarioRepository usuarioRepository;
-
+    //agregar a un usuario a una alianza
     public boolean unirUsuarioAAlianza(Long alianzaId, Long usuarioId) {
         Optional<Alianza> alianzaOpt = alianzaRepository.findById(alianzaId);
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
@@ -46,6 +49,7 @@ public class AlianzaService {
         return false;
     }
 
+    //elimina a un usuario de una alianza
     public boolean eliminarUsuarioDeAlianza(Long alianzaId, Long usuarioId) {
         Optional<Alianza> alianzaOpt = alianzaRepository.findById(alianzaId);
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
