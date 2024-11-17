@@ -23,6 +23,7 @@ public class AlianzaController {
     @Autowired
     private AlianzaService alianzaService;
 
+    //Obtener una alianza en especifico
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Alianza> obtenerAlianzaPorId(@PathVariable Long id) {
@@ -37,6 +38,7 @@ public class AlianzaController {
     @Autowired
     private AlianzaService AlianzaService;
 
+    //obtener todas las alianzas
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping()
     public ResponseEntity<List<Alianza>> obtenerAlianzas() {
@@ -50,6 +52,7 @@ public class AlianzaController {
         AlianzaService.createAlianza(alianza);
     }
 
+    //Agregar aun usuario a una alianza
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{alianzaId}/unirse/{usuarioId}")
     public ResponseEntity<Void> unirseAlianza(@PathVariable Long alianzaId, @PathVariable Long usuarioId) {
@@ -60,6 +63,7 @@ public class AlianzaController {
         }
     }
 
+    //Eliminar a un usuario de una alianza
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{alianzaId}/salir/{usuarioId}")
     public ResponseEntity<Void> salirDeAlianza(@PathVariable Long alianzaId, @PathVariable Long usuarioId) {

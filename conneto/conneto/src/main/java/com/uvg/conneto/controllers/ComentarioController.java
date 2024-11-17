@@ -16,6 +16,7 @@ public class ComentarioController {
     @Autowired
     private ComentarioService comentarioService;
 
+    //Guarda un comentario
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/guardarComentario")
     public ResponseEntity<String> guardarComentario(@RequestBody Comentario comentario) {
@@ -23,6 +24,7 @@ public class ComentarioController {
         return ResponseEntity.ok("Comentario guardado exitosamente");
     }
 
+    //Obtiene todos los comentarios
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{publicacionId}")
     public ResponseEntity<List<Map<String, Object>>> obtenerComentariosPorPublicacion(

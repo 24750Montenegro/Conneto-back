@@ -79,6 +79,7 @@ public class ProyectoService {
         return tareaRepository.save(nuevaTarea);
     }
 
+    //Guardar proyecto en una alianza
     @Autowired
     private AlianzaRepository AlianzaRepository;
     public Proyecto guardarProyectoEnAlianza(Long alianzaId, Proyecto proyecto) {

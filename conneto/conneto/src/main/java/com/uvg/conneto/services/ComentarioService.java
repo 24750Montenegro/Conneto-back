@@ -15,10 +15,12 @@ public class ComentarioService {
 
     private final ComentarioRepository comentarioRepository;
 
+    //Crear un comentario
     public void createComentario(Comentario comentario) {
         comentarioRepository.save(comentario);
     }
 
+    //Obtener los comentarios
     public List<Map<String, Object>> obtenerComentariosPorPublicacion(Long publicacionId) {
         // Llama al repositorio sin paginación
         List<Comentario> comentarios = comentarioRepository.findByPublicacionId(publicacionId);

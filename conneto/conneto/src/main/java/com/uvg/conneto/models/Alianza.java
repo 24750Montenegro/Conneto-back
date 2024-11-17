@@ -28,6 +28,7 @@ public class Alianza {
     private String image;
     private String descripcion;
 
+    //Obtiene los datos de usuarios e ignora ciertas propiedades innecesarias
     @ManyToMany
     @JoinTable(
         name = "alianza_usuario",
@@ -37,6 +38,7 @@ public class Alianza {
     @JsonIgnoreProperties(value= {"publicaciones", "proyectos","aliados","alianzas","interesesODS","contrasena","publicacionesQueLeGustan","habilidades","email","ubicacion"})
     private List<Usuario> usuarios;
 
+    //obtiene los datos de proyectos e ignora alianza para evitar errores
     @OneToMany(mappedBy = "alianza", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value={"alianza"})
     private List<Proyecto> proyectos;
