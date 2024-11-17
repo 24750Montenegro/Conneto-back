@@ -19,50 +19,81 @@ import com.uvg.conneto.services.ODSService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Controlador REST para gestionar las operaciones relacionadas con los Objetivos de Desarrollo Sostenible (ODS).
+ * 
+ * Proporciona endpoints para crear, leer, actualizar y eliminar ODS.
+ * Los métodos utilizan {@link ResponseEntity} para retornar respuestas HTTP estándar.
+ */
 @RestController
 @RequestMapping("/ods")
 @RequiredArgsConstructor
-public class ODSController 
-{
+public class ODSController {
+
+    /**
+     * Servicio encargado de la lógica de negocio relacionada con los ODS.
+     * Inyectado automáticamente mediante {@link Autowired}.
+     */
     @Autowired
     private final ODSService odsService;
 
-    // Crear ODS
+    /**
+     * Endpoint para crear un nuevo ODS.
+     * 
+     * @param ods Objeto {@link ODS} enviado en el cuerpo de la solicitud.
+     * @return Un {@link ResponseEntity} con el ODS creado y un código HTTP 200 (OK).
+     */
     @PostMapping("/crear")
-    public ResponseEntity<ODS> crearODS(@RequestBody ODS ods) 
-    {
+    public ResponseEntity<ODS> crearODS(@RequestBody ODS ods) {
         odsService.crearODS(ods);
         return ResponseEntity.ok(ods);
     }
 
-    // Obtener ODS por ID
+    /**
+     * Endpoint para obtener un ODS por su ID.
+     * 
+     * @param id Identificador único del ODS.
+     * @return Un {@link ResponseEntity} con el ODS encontrado y un código HTTP 200 (OK),
+     * o un código HTTP 404 (Not Found) si no se encuentra.
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<ODS> obtenerODS(@PathVariable Long id) 
-    {
+    public ResponseEntity<ODS> obtenerODS(@PathVariable Long id) {
         Optional<ODS> ods = odsService.obtenerODSPorId(id);
         return ods.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Obtener todas las ODS
+    /**
+     * Endpoint para obtener una lista de todos los ODS disponibles.
+     * 
+     * @return Un {@link ResponseEntity} con la lista de todos los ODS y un código HTTP 200 (OK).
+     */
     @GetMapping("/todas")
-    public ResponseEntity<List<ODS>> obtenerTodasODS() 
-    {
+    public ResponseEntity<List<ODS>> obtenerTodasODS() {
         return ResponseEntity.ok(odsService.obtenerTodasODS());
     }
 
-    // Actualizar ODS
+    /**
+     * Endpoint para actualizar un ODS existente.
+     * 
+     * @param id            Identificador único del ODS a actualizar.
+     * @param odsActualizado Objeto {@link ODS} con los datos actualizados.
+     * @return Un {@link ResponseEntity} con el ODS actualizado y un código HTTP 200 (OK).
+     */
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<ODS> actualizarODS(@PathVariable Long id, @RequestBody ODS odsActualizado) 
-    {
+    public ResponseEntity<ODS> actualizarODS(@PathVariable Long id, @RequestBody ODS odsActualizado) {
         odsService.actualizarODS(id, odsActualizado);
         return ResponseEntity.ok(odsActualizado);
     }
 
-    // Eliminar ODS
+    /**
+     * Endpoint para eliminar un ODS por su ID.
+     * 
+     * @param id Identificador único del ODS a eliminar.
+     * @return Un {@link ResponseEntity} sin contenido (HTTP 204 No Content) si la operación es exitosa.
+     */
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> eliminarODS(@PathVariable Long id) 
-    {
+    public ResponseEntity<Void> eliminarODS(@PathVariable Long id) {
         odsService.eliminarODS(id);
         return ResponseEntity.noContent().build();
-    }   
+    }  
 }

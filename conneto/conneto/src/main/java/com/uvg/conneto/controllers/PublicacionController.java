@@ -100,7 +100,6 @@ public class PublicacionController
         }
         return ResponseEntity.notFound().build();
     }
-   
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{publicacionId}/like/{usuarioId}")
@@ -159,7 +158,6 @@ public class PublicacionController
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publicación o Usuario no encontrado");
     }
 
-
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{publicacionId}/likes")
     public ResponseEntity<Map<String, Object>> obtenerLikes(@PathVariable Long publicacionId) {
@@ -191,10 +189,6 @@ public class PublicacionController
         // Si no se encuentra la publicación, retornamos un error 404
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Publicación no encontrada"));
     }
-
-
-
-
 
     // Agregar un comentario a una Publicación
     @PutMapping("/{id}/comentario")
