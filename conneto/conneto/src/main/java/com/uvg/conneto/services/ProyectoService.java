@@ -185,4 +185,10 @@ public class ProyectoService {
         //Guarda el proyecto
         return proyectoRepository.save(proyecto);
     }
+
+    // Método para obtener un proyecto por su nombre
+    public Proyecto findByNombre(String nombre) {
+        return proyectoRepository.findByNombre(nombre);
+    }
+    
 }

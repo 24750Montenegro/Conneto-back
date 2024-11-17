@@ -83,6 +83,12 @@ public class Proyecto {
     @JoinColumn(name = "alianza_id")
     private Alianza alianza; //Id de la alianza a la cual esta ligada
 
+
+    public Proyecto orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
     
     // //Constructor 1: Método tradicional con parametros
     // public Proyecto(String nombre, String descripcion, List<ODS> categoriaODS, List<Usuario> usuarios, List<Tarea> tareas){

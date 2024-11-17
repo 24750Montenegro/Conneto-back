@@ -2,6 +2,7 @@
 package com.uvg.conneto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.uvg.conneto.models.Proyecto;
 import com.uvg.conneto.models.Tarea;
+import com.uvg.conneto.repositories.ProyectoRepository;
 import com.uvg.conneto.services.ProyectoService;
 import java.util.ArrayList;
 
@@ -131,7 +134,7 @@ public class ProyectoController {
     //Permite que el metodo sea accesible desde esa URL
     @CrossOrigin(origins = "http://localhost:3000")
     //Tipo de solicitud que elimina informacion
-    @DeleteMapping("/eliminarproyecto")
+    @DeleteMapping("/eliminarproyecto/{id}")
     public void eliminarProyecto(@PathVariable Long id) {
         //Utiliza un metodo para borrar el proyecto por su ID
         proyectoService.eliminarProyecto(id);
@@ -168,5 +171,16 @@ public class ProyectoController {
             @RequestBody Proyecto proyecto) {
         //Llama la metodo creado en el proyecto service
         return proyectoService.guardarProyectoEnAlianza(alianzaId, proyecto);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/proyecto/id/{nombre}")
+    public Long obtenerIdPorNombre(@PathVariable String nombre) {
+        Proyecto proyecto = proyectoService.findByNombre(nombre);
+        if (proyecto != null) {
+            return proyecto.getId();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Proyecto no encontrado");
+        }
     }
 }
