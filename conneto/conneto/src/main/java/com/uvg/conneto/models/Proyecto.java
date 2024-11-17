@@ -60,7 +60,7 @@ public class Proyecto {
 
     @ManyToOne
     @JoinColumn(name = "alianza_id")
-    private Alianza alianza;
+    private Alianza alianza; //Id de la alianza a la cual esta ligada
 
     // //Constructor 1: Método tradicional con parametros
     // public Proyecto(String nombre, String descripcion, List<ODS> categoriaODS, List<Usuario> usuarios, List<Tarea> tareas){

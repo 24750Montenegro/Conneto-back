@@ -70,6 +70,7 @@ public class ProyectoController {
         return proyectoService.obtenerProyectoPorId(id);
     }
 
+    //crear y almacena un proyecto en una alianza
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{alianzaId}/crearProyecto")
     public Proyecto crearProyectoEnAlianza(
