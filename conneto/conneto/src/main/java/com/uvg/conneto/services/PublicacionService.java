@@ -1,82 +1,126 @@
+//Se define donde se guardara el service
 package com.uvg.conneto.services;
+//Se importan los recursos necesarios
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
 import com.uvg.conneto.models.Comentario;
 import com.uvg.conneto.models.ODS;
 import com.uvg.conneto.models.Publicacion;
 import com.uvg.conneto.models.Usuario;
+import com.uvg.conneto.repositories.ODSRepository;
 import com.uvg.conneto.repositories.PublicacionRepository;
-
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio para gestionar la lógica de negocio relacionada con las Publicaciones
+ * 
+ * Proporciona métodos para crear, leer, actualizar y eliminar ODS, interactuando con el repositorio {@link PublicacionRepository}.
+ */
 @Service
+//Crea un constructor con paramtros
 @RequiredArgsConstructor
-public class PublicacionService 
-{
-    private final PublicacionRepository publicacionRepository;
+public class PublicacionService {
 
-    // Crear Publicación
-    public void crearPublicacion(Publicacion publicacion) 
-    {
+    /** Repositorio de publicaciones utilizado para realizar operaciones CRUD */
+    private final PublicacionRepository publicacionRepository;
+    private final ODSRepository odsRepository;
+
+    /**
+     * Crea una nueva publicación y la guarda en la base de datos.
+     * Si la publicación incluye categorías ODS, las busca y las asocia a la publicación.
+     * 
+     * @param publicacion la publicación a crear
+     */
+    public void crearPublicacion(Publicacion publicacion) {
         publicacionRepository.save(publicacion);
     }
 
-    // Leer Publicación por ID
-    public Optional<Publicacion> obtenerPublicacionPorId(Long id) 
-    {
+    /**
+     * Busca una publicación por su identificador único.
+     * 
+     * @param id el identificador único de la publicación
+     * @return un {@link Optional} con la publicación encontrada o vacío si no existe
+     */
+    public Optional<Publicacion> obtenerPublicacionPorId(Long id) {
         return publicacionRepository.findById(id);
     }
 
-    // Leer todas las Publicaciones
-    public List<Publicacion> obtenerTodasPublicaciones() 
-    {
+    /**
+     * Recupera todas las publicaciones almacenadas en la base de datos.
+     * 
+     * @return una lista de todas las publicaciones
+     */
+    public List<Publicacion> obtenerTodasPublicaciones() {
         return publicacionRepository.findAll();
     }
 
-    // Actualizar Publicación
-    public void actualizarPublicacion(Long id, Publicacion publicacionActualizada) 
-    {
-        Optional<Publicacion> publicacionExistente = publicacionRepository.findById(id);
-        if (publicacionExistente.isPresent()) {
-
-            Publicacion publicacion = publicacionExistente.get();
+    /**
+     * Actualiza una publicación existente con los datos proporcionados.
+     * Si se especifican categorías ODS, actualiza su asociación.
+     * 
+     * @param id el identificador de la publicación a actualizar
+     * @param publicacionActualizada la publicación con los nuevos datos
+     */
+    public void actualizarPublicacion(Long id, Publicacion publicacionActualizada) {
+        Optional<Publicacion> publicacionOpt = publicacionRepository.findById(id);
+        if (publicacionOpt.isPresent()) {
+            Publicacion publicacion = publicacionOpt.get();
             publicacion.setContenido(publicacionActualizada.getContenido());
-            publicacion.setCategoriaODS(publicacionActualizada.getCategoriaODS());
             publicacion.setImagenURL(publicacionActualizada.getImagenURL());
-            publicacion.setLikes(publicacionActualizada.getLikes());
-            publicacion.setComentarios(publicacionActualizada.getComentarios());
+
+            if (publicacionActualizada.getCategoriaODS() != null) {
+                List<ODS> odsList = odsRepository.findAllById(
+                    publicacionActualizada.getCategoriaODS().stream().map(ODS::getId).collect(Collectors.toList())
+                );
+                publicacion.setCategoriaODS(odsList);
+            }
+
             publicacionRepository.save(publicacion);
         }
     }
 
-    // Eliminar Publicación por ID
-    public void eliminarPublicacion(Long id) 
-    {
+    /**
+     * Elimina una publicación por su identificador único.
+     * 
+     * @param id el identificador de la publicación a eliminar
+     */
+    public void eliminarPublicacion(Long id) {
         publicacionRepository.deleteById(id);
     }
 
-    // Agregar una categoría ODS a la Publicación
-    public void agregarCategoriaODS(Publicacion publicacion, ODS ods) 
-    {
+    /**
+     * Agrega una categoría ODS a una publicación existente.
+     * 
+     * @param publicacion la publicación a la que se le agregará la categoría
+     * @param ods la categoría ODS a agregar
+     */
+    public void agregarCategoriaODS(Publicacion publicacion, ODS ods) {
         publicacion.getCategoriaODS().add(ods);
         publicacionRepository.save(publicacion);
     }
 
-    // Agregar un "like" a la Publicación
-    public void agregarLike(Publicacion publicacion, Usuario usuario) 
-    {
+    /**
+     * Agrega un "like" a una publicación por parte de un usuario.
+     * 
+     * @param publicacion la publicación a la que se le agregará el "like"
+     * @param usuario el usuario que da el "like"
+     */
+    public void agregarLike(Publicacion publicacion, Usuario usuario) {
         publicacion.getLikes().add(usuario);
         publicacionRepository.save(publicacion);
     }
 
-    // Agregar un comentario a la Publicación
-    public void agregarComentario(Publicacion publicacion, Comentario comentario) 
-    {
+    /**
+     * Agrega un comentario a una publicación existente.
+     * 
+     * @param publicacion la publicación a la que se le agregará el comentario
+     * @param comentario el comentario a agregar
+     */
+    public void agregarComentario(Publicacion publicacion, Comentario comentario) {
         publicacion.getComentarios().add(comentario);
         publicacionRepository.save(publicacion);
     }
-    
 }
