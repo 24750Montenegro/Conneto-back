@@ -3,6 +3,8 @@ package com.uvg.conneto.services;
 //Se importan los recursos necesarios
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import com.uvg.conneto.models.Comentario;
 import com.uvg.conneto.models.ODS;

@@ -5,6 +5,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -85,6 +88,11 @@ public class Publicacion {
      */
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> categorias;
+  
+
 }
 
     // /**
