@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,15 @@ public class PublicacionController
     @GetMapping("/todas")
     public ResponseEntity<List<Publicacion>> obtenerTodasPublicaciones() 
     {
-        return ResponseEntity.ok(publicacionService.obtenerTodasPublicaciones());
+        List<Publicacion> publicaciones = publicacionService.obtenerTodasPublicaciones();
+        
+        publicaciones.forEach(publicacion -> {
+            publicacion.setCategoriaODS(publicacion.getCategoriaODS().stream()
+                .map(ods -> new ODS(ods.getId(), ods.getNombre(), null, null))
+                .collect(Collectors.toList()));
+        });
+        
+        return ResponseEntity.ok(publicaciones);
     }
 
     // Actualizar Publicación
@@ -73,6 +80,7 @@ public class PublicacionController
     }
 
     // Eliminar Publicación
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarPublicacion(@PathVariable Long id) 
     {
@@ -92,7 +100,6 @@ public class PublicacionController
         }
         return ResponseEntity.notFound().build();
     }
-   
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{publicacionId}/like/{usuarioId}")
@@ -151,7 +158,6 @@ public class PublicacionController
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publicación o Usuario no encontrado");
     }
 
-
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{publicacionId}/likes")
     public ResponseEntity<Map<String, Object>> obtenerLikes(@PathVariable Long publicacionId) {
@@ -183,10 +189,6 @@ public class PublicacionController
         // Si no se encuentra la publicación, retornamos un error 404
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Publicación no encontrada"));
     }
-
-
-
-
 
     // Agregar un comentario a una Publicación
     @PutMapping("/{id}/comentario")
