@@ -17,9 +17,10 @@ import com.uvg.conneto.models.Tarea;
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
         /**
-         * Busca y devuelve una tarea basada en su nombre.
+         * Busca y devuelve una tarea basada en su nombre y por el ID de un proyecto.
          *
          * @param nombre el nombre de la tarea a buscar
+         * @param proyectoId el ID de un proyecto
          * @return la tarea con el nombre especificado, o {@code null} si no se encuentra ninguno.
          */
         Tarea findByNombre(String nombre);
