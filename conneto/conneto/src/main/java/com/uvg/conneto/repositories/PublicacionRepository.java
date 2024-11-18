@@ -8,17 +8,19 @@ import org.springframework.stereotype.Repository;
 import com.uvg.conneto.models.Publicacion;
 
 /**
- * Repositorio para acceder y realizar operaciones CRUD en la entidad Publicacion.
- * Extiende JpaRepository para obtener las funcionalidades básicas de persistencia.
+ * Repositorio para gestionar operaciones de acceso a datos relacionadas con las Publicaciones.
+ * 
+ * Esta interfaz extiende {@link JpaRepository}, lo que proporciona métodos CRUD estándar 
+ * y funcionalidades avanzadas de JPA para la entidad {@link Publicacion}.
  */
 @Repository
-public interface PublicacionRepository extends JpaRepository<Publicacion, Long> {
-
+public interface PublicacionRepository extends JpaRepository<Publicacion, Long>
+{
     /**
-     * Encuentra una publicación por su ID.
-     * 
-     * @param id El ID de la publicación.
-     * @return La publicación correspondiente al ID proporcionado.
+     * Busca una publicación por su identificador único.
+     *
+     * @param id el identificador único de la publicación
+     * @return la publicación correspondiente al identificador proporcionado, o {@code null} si no se encuentra
      */
     Publicacion findById(long id);
 }

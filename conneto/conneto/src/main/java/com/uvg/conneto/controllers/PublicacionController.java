@@ -29,24 +29,26 @@ import com.uvg.conneto.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Controlador para gestionar las solicitudes HTTP relacionadas con la entidad Publicación.
- * Proporciona endpoints para crear, actualizar, obtener, eliminar publicaciones y gestionar interacciones con ellas,
- * como agregar comentarios y likes.
+ * Controlador REST para gestionar las publicaciones.
+ * Define endpoints para crear, leer, actualizar, eliminar y gestionar interacciones como likes y comentarios.
  */
 @RestController
 @RequestMapping("/publicaciones")
 @RequiredArgsConstructor
 public class PublicacionController {
 
+    // Servicio para gestionar publicaciones
     private final PublicacionService publicacionService;
+
+    // Servicio para gestionar usuarios
     @Autowired
     private UsuarioService usuarioService;
 
     /**
-     * Crea una nueva publicación.
+     * Crear una nueva publicación.
      * 
-     * @param publicacion El objeto Publicación que se desea crear.
-     * @return Respuesta HTTP con el código de estado 200 (OK) y la publicación creada.
+     * @param publicacion Objeto de tipo {@link Publicacion} a crear.
+     * @return La publicación creada con una respuesta HTTP 200.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/crear")
@@ -56,10 +58,10 @@ public class PublicacionController {
     }
 
     /**
-     * Obtiene una publicación por su ID.
+     * Obtener una publicación por su ID.
      * 
-     * @param id El ID de la publicación que se desea obtener.
-     * @return Respuesta HTTP con la publicación encontrada o un error 404 si no se encuentra.
+     * @param id Identificador único de la publicación.
+     * @return La publicación correspondiente si existe, o un error 404 si no se encuentra.
      */
     @GetMapping("/{id}")
     public ResponseEntity<Publicacion> obtenerPublicacion(@PathVariable Long id) {
@@ -68,9 +70,9 @@ public class PublicacionController {
     }
 
     /**
-     * Obtiene todas las publicaciones disponibles.
+     * Obtener todas las publicaciones.
      * 
-     * @return Respuesta HTTP con una lista de todas las publicaciones.
+     * @return Lista de todas las publicaciones con una respuesta HTTP 200.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/todas")
@@ -92,10 +94,10 @@ public class PublicacionController {
     }
 
     /**
-     * Elimina una publicación por su ID.
+     * Eliminar una publicación por su ID.
      * 
-     * @param id El ID de la publicación que se desea eliminar.
-     * @return Respuesta HTTP con el código de estado 204 (No Content) si la eliminación fue exitosa.
+     * @param id Identificador único de la publicación.
+     * @return Respuesta HTTP 204 si la eliminación es exitosa.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/eliminar/{id}")
@@ -105,11 +107,11 @@ public class PublicacionController {
     }
 
     /**
-     * Agrega una categoría ODS a una publicación existente.
+     * Agregar una categoría ODS a una publicación.
      * 
-     * @param id El ID de la publicación a la que se le desea agregar la categoría ODS.
-     * @param ods El objeto ODS que se desea agregar a la publicación.
-     * @return Respuesta HTTP con el código de estado 200 (OK) si la categoría ODS fue agregada.
+     * @param id Identificador único de la publicación.
+     * @param ods Objeto ODS a asociar con la publicación.
+     * @return Respuesta HTTP 200 si la operación es exitosa, o 404 si la publicación no existe.
      */
     @PutMapping("/{id}/categoriaODS")
     public ResponseEntity<Void> agregarCategoriaODS(@PathVariable Long id, @RequestBody ODS ods) {
@@ -122,20 +124,22 @@ public class PublicacionController {
     }
 
     /**
-     * Agrega un "like" de un usuario a una publicación.
+     * Agregar un "like" a una publicación por parte de un usuario.
      * 
-     * @param publicacionId El ID de la publicación a la que se le desea agregar el like.
-     * @param usuarioId El ID del usuario que está dando el like.
-     * @return Respuesta HTTP con un mensaje indicando si el like fue agregado o si ya fue dado previamente.
+     * @param publicacionId ID de la publicación.
+     * @param usuarioId ID del usuario.
+     * @return Respuesta indicando éxito o errores según el caso.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/{publicacionId}/like/{usuarioId}")
     public ResponseEntity<String> agregarLike(@PathVariable Long publicacionId, @PathVariable Long usuarioId) {
         Optional<Publicacion> publicacionOpt = publicacionService.obtenerPublicacionPorId(publicacionId);
         Optional<Usuario> usuarioOpt = usuarioService.getUserById(usuarioId);
+
         if (publicacionOpt.isPresent() && usuarioOpt.isPresent()) {
             Publicacion publicacion = publicacionOpt.get();
             Usuario usuario = usuarioOpt.get();
+
             if (!publicacion.getLikes().contains(usuario)) {
                 publicacion.getLikes().add(usuario);
                 publicacionService.crearPublicacion(publicacion);
@@ -144,24 +148,27 @@ public class PublicacionController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ya has dado like a esta publicación");
             }
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publicación o Usuario no encontrado");
     }
 
     /**
-     * Elimina un "like" de un usuario a una publicación.
+     * Eliminar un "like" de una publicación.
      * 
-     * @param publicacionId El ID de la publicación de la que se desea eliminar el like.
-     * @param usuarioId El ID del usuario cuyo like se desea eliminar.
-     * @return Respuesta HTTP con un mensaje indicando si el like fue eliminado o si no existía.
+     * @param publicacionId ID de la publicación.
+     * @param usuarioId ID del usuario.
+     * @return Respuesta indicando éxito o errores según el caso.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{publicacionId}/like/{usuarioId}")
     public ResponseEntity<String> eliminarLike(@PathVariable Long publicacionId, @PathVariable Long usuarioId) {
         Optional<Publicacion> publicacionOpt = publicacionService.obtenerPublicacionPorId(publicacionId);
         Optional<Usuario> usuarioOpt = usuarioService.getUserById(usuarioId);
+
         if (publicacionOpt.isPresent() && usuarioOpt.isPresent()) {
             Publicacion publicacion = publicacionOpt.get();
             Usuario usuario = usuarioOpt.get();
+
             if (publicacion.getLikes().contains(usuario)) {
                 publicacion.getLikes().remove(usuario);
                 publicacionService.crearPublicacion(publicacion);
@@ -170,21 +177,24 @@ public class PublicacionController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No has dado like a esta publicación");
             }
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publicación o Usuario no encontrado");
     }
 
     /**
-     * Obtiene todos los "likes" de una publicación.
+     * Obtener todos los "likes" de una publicación.
      * 
-     * @param publicacionId El ID de la publicación para la cual se desean obtener los likes.
-     * @return Respuesta HTTP con una lista de los usuarios que dieron like y la cantidad total de likes.
+     * @param publicacionId ID de la publicación.
+     * @return Lista de usuarios que han dado "like" y la cantidad total de likes.
      */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{publicacionId}/likes")
     public ResponseEntity<Map<String, Object>> obtenerLikes(@PathVariable Long publicacionId) {
         Optional<Publicacion> publicacionOpt = publicacionService.obtenerPublicacionPorId(publicacionId);
+
         if (publicacionOpt.isPresent()) {
             Publicacion publicacion = publicacionOpt.get();
+
             List<Map<String, Object>> likes = publicacion.getLikes().stream()
                 .map(usuario -> {
                     Map<String, Object> userMap = new HashMap<>();
@@ -194,20 +204,22 @@ public class PublicacionController {
                     return userMap;
                 })
                 .collect(Collectors.toList());
+
             Map<String, Object> response = new HashMap<>();
             response.put("likes", likes);
             response.put("cantidadLikes", likes.size());
             return ResponseEntity.ok(response);
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Publicación no encontrada"));
     }
 
     /**
-     * Agrega un comentario a una publicación.
+     * Agregar un comentario a una publicación.
      * 
-     * @param id El ID de la publicación a la que se desea agregar el comentario.
-     * @param comentario El objeto Comentario que se desea agregar a la publicación.
-     * @return Respuesta HTTP con el código de estado 200 (OK) si el comentario fue agregado.
+     * @param id ID de la publicación.
+     * @param comentario Comentario a agregar.
+     * @return Respuesta HTTP 200 si es exitoso, o 404 si la publicación no existe.
      */
     @PutMapping("/{id}/comentario")
     public ResponseEntity<Void> agregarComentario(@PathVariable Long id, @RequestBody Comentario comentario) {

@@ -23,9 +23,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Representa una publicación en el sistema.
- * Cada publicación puede tener un contenido, una URL de imagen, un autor, categorías ODS,
- * usuarios que le dieron "me gusta" y comentarios asociados.
+ * Clase que representa una publicación en el sistema.
+ * 
+ * Cada publicación puede tener contenido textual, una imagen asociada, un autor, categorías ODS, 
+ * una lista de usuarios que han dado "like" y una lista de comentarios.
  */
 @Data
 @AllArgsConstructor
@@ -33,34 +34,41 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Publicacion {
 
-    /** Identificador único de la publicación */
-    @Id 
+    /**
+     * Identificador único de la publicación.
+     * Generado automáticamente mediante {@code GenerationType.IDENTITY}.
+     */
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; 
+    private Long id;
 
-    /** Contenido textual de la publicación */
+    /**
+     * Contenido textual de la publicación.
+     */
     @Basic
     private String contenido;
 
-    /** URL de la imagen asociada a la publicación */
+    /**
+     * URL de la imagen asociada a la publicación.
+     */
     @Basic
     private String imagenURL;
 
-    /** 
-     * Autor de la publicación. 
-     * La relación es de muchos a uno, ya que un usuario puede tener múltiples publicaciones.
+    /**
+     * Autor de la publicación.
+     * Relación de muchos a uno con la entidad {@link Usuario}.
+     * Se ignoran las propiedades recursivas de publicaciones al serializar.
      */
     @ManyToOne
     @JsonIgnoreProperties("publicaciones")
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
-    /** 
-     * Lista de ODS asociados a la publicación. 
-     * La relación es de muchos a muchos, ya que una publicación puede abordar múltiples ODS
-     * y un ODS puede estar en varias publicaciones.
+    /**
+     * Categorías ODS asociadas a la publicación.
+     * Relación de muchos a muchos con la entidad {@link ODS}, cargada con una estrategia EAGER.
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "publicacion_ods",
         joinColumns = @JoinColumn(name = "publicacion_id"),
@@ -68,9 +76,10 @@ public class Publicacion {
     )
     private List<ODS> categoriaODS;
 
-    /** 
-     * Lista de usuarios que han dado "me gusta" a la publicación. 
-     * Las propiedades que crean referencias cíclicas se ignoran en JSON.
+    /**
+     * Lista de usuarios que han dado "like" a la publicación.
+     * Relación de muchos a muchos con la entidad {@link Usuario}.
+     * Se ignoran las propiedades recursivas específicas relacionadas con "likes" y otras publicaciones.
      */
     @ManyToMany
     @JsonIgnoreProperties(value = {"publicaciones", "likes", "publicacionesQueLeGustan"})
@@ -81,10 +90,10 @@ public class Publicacion {
     )
     private List<Usuario> likes;
 
-    /** 
-     * Lista de comentarios asociados a la publicación. 
-     * La relación es de uno a muchos, y los comentarios se eliminan en cascada cuando 
-     * se elimina la publicación.
+    /**
+     * Lista de comentarios asociados a la publicación.
+     * Relación de uno a muchos con la entidad {@link Comentario}.
+     * Los comentarios se eliminan automáticamente en cascada cuando se elimina la publicación.
      */
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;

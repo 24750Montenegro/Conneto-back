@@ -15,9 +15,9 @@ import com.uvg.conneto.repositories.PublicacionRepository;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Servicio para manejar la lógica de negocio relacionada con las publicaciones.
- * Ofrece métodos para crear, leer, actualizar, eliminar publicaciones y 
- * para añadir categorías ODS, "likes" y comentarios a una publicación.
+ * Servicio para gestionar la lógica de negocio relacionada con las Publicaciones
+ * 
+ * Proporciona métodos para crear, leer, actualizar y eliminar ODS, interactuando con el repositorio {@link PublicacionRepository}.
  */
 @Service
 //Crea un constructor con paramtros
@@ -29,44 +29,49 @@ public class PublicacionService {
     private final ODSRepository odsRepository;
 
     /**
-     * Crea y guarda una nueva publicación.
-     * @param publicacion La publicación a crear.
+     * Crea una nueva publicación y la guarda en la base de datos.
+     * Si la publicación incluye categorías ODS, las busca y las asocia a la publicación.
+     * 
+     * @param publicacion la publicación a crear
      */
     public void crearPublicacion(Publicacion publicacion) {
         publicacionRepository.save(publicacion);
     }
 
     /**
-     * Obtiene una publicación por su ID.
-     * @param id El ID de la publicación.
-     * @return Un Optional que contiene la publicación si se encuentra; de lo contrario, vacío.
+     * Busca una publicación por su identificador único.
+     * 
+     * @param id el identificador único de la publicación
+     * @return un {@link Optional} con la publicación encontrada o vacío si no existe
      */
     public Optional<Publicacion> obtenerPublicacionPorId(Long id) {
         return publicacionRepository.findById(id);
     }
 
     /**
-     * Obtiene todas las publicaciones existentes.
-     * @return Una lista de todas las publicaciones.
+     * Recupera todas las publicaciones almacenadas en la base de datos.
+     * 
+     * @return una lista de todas las publicaciones
      */
     public List<Publicacion> obtenerTodasPublicaciones() {
         return publicacionRepository.findAll();
     }
 
     /**
-     * Actualiza los datos de una publicación existente.
-     * @param id El ID de la publicación a actualizar.
-     * @param publicacionActualizada La publicación con los datos actualizados.
+     * Actualiza una publicación existente con los datos proporcionados.
+     * Si se especifican categorías ODS, actualiza su asociación.
+     * 
+     * @param id el identificador de la publicación a actualizar
+     * @param publicacionActualizada la publicación con los nuevos datos
      */
     public void actualizarPublicacion(Long id, Publicacion publicacionActualizada) {
-        Optional<Publicacion> publicacionExistente = publicacionRepository.findById(id);
-        if (publicacionExistente.isPresent()) {
-            Publicacion publicacion = publicacionExistente.get();
+        Optional<Publicacion> publicacionOpt = publicacionRepository.findById(id);
+        if (publicacionOpt.isPresent()) {
+            Publicacion publicacion = publicacionOpt.get();
             publicacion.setContenido(publicacionActualizada.getContenido());
             publicacion.setImagenURL(publicacionActualizada.getImagenURL());
 
-            if (publicacionActualizada.getCategoriaODS() != null) 
-            {
+            if (publicacionActualizada.getCategoriaODS() != null) {
                 List<ODS> odsList = odsRepository.findAllById(
                     publicacionActualizada.getCategoriaODS().stream().map(ODS::getId).collect(Collectors.toList())
                 );
@@ -78,17 +83,19 @@ public class PublicacionService {
     }
 
     /**
-     * Elimina una publicación por su ID.
-     * @param id El ID de la publicación a eliminar.
+     * Elimina una publicación por su identificador único.
+     * 
+     * @param id el identificador de la publicación a eliminar
      */
     public void eliminarPublicacion(Long id) {
         publicacionRepository.deleteById(id);
     }
 
     /**
-     * Agrega una categoría ODS a una publicación.
-     * @param publicacion La publicación a la que se añadirá la categoría ODS.
-     * @param ods La categoría ODS a añadir.
+     * Agrega una categoría ODS a una publicación existente.
+     * 
+     * @param publicacion la publicación a la que se le agregará la categoría
+     * @param ods la categoría ODS a agregar
      */
     public void agregarCategoriaODS(Publicacion publicacion, ODS ods) {
         publicacion.getCategoriaODS().add(ods);
@@ -96,9 +103,10 @@ public class PublicacionService {
     }
 
     /**
-     * Agrega un "like" de un usuario a una publicación.
-     * @param publicacion La publicación a la que se añadirá el "like".
-     * @param usuario El usuario que da "like" a la publicación.
+     * Agrega un "like" a una publicación por parte de un usuario.
+     * 
+     * @param publicacion la publicación a la que se le agregará el "like"
+     * @param usuario el usuario que da el "like"
      */
     public void agregarLike(Publicacion publicacion, Usuario usuario) {
         publicacion.getLikes().add(usuario);
@@ -106,9 +114,10 @@ public class PublicacionService {
     }
 
     /**
-     * Agrega un comentario a una publicación.
-     * @param publicacion La publicación a la que se añadirá el comentario.
-     * @param comentario El comentario a añadir.
+     * Agrega un comentario a una publicación existente.
+     * 
+     * @param publicacion la publicación a la que se le agregará el comentario
+     * @param comentario el comentario a agregar
      */
     public void agregarComentario(Publicacion publicacion, Comentario comentario) {
         publicacion.getComentarios().add(comentario);
